@@ -1,0 +1,922 @@
+.sprite-pirogue {
+  background-image: url(img/pirogue.png);
+  background-size: 200% 500%;
+  filter: drop-shadow(0px 0px 1px #fff);
+}
+.browser-apple .sprite-pirogue {
+  filter: none !important;
+}
+.sprite-pirogue.sprite-pirogue-back {
+  background-position: 0 0;
+}
+.sprite-pirogue.sprite-pirogue-01 {
+  background-position: 100% 0;
+}
+.sprite-pirogue.sprite-pirogue-03 {
+  background-position: 100% 25%;
+}
+.sprite-pirogue.sprite-pirogue-05 {
+  background-position: 100% 50%;
+}
+.sprite-pirogue.sprite-pirogue-07 {
+  background-position: 100% 75%;
+}
+.sprite-pirogue.sprite-pirogue-09 {
+  background-position: 100% 100%;
+}
+.sprite-pirogue.sprite-pirogue-02 {
+  background-position: 0 25%;
+}
+.sprite-pirogue.sprite-pirogue-04 {
+  background-position: 0 50%;
+}
+.sprite-pirogue.sprite-pirogue-06 {
+  background-position: 0 75%;
+}
+.sprite-pirogue.sprite-pirogue-08 {
+  background-position: 0 100%;
+}
+
+.sprite-tile {
+  background-image: url(img/tiles.jpg);
+  background-size: 900% 800%;
+  filter: drop-shadow(0px 0px 1px #fff);
+  border-radius: 8%;
+  background-position: 100% 100%;
+  /* Livestock */
+  /* Wheat */
+  /* Fish */
+  /* Marble */
+  /* Ivory */
+  /* Ebony */
+}
+.browser-apple .sprite-tile {
+  filter: none !important;
+}
+.sprite-tile.sprite-character-back, .sprite-tile.sprite-character-0 {
+  background-position: 75% 28.5714285714%;
+}
+.sprite-tile.sprite-good-back {
+  background-position: 62.5% 28.5714285714%;
+}
+.sprite-tile.sprite-starting-back {
+  background-position: 12.5% 100%;
+}
+.sprite-tile.sprite-statue-v {
+  background-position: 75% 71.4285714286%;
+}
+.sprite-tile.sprite-statue-h {
+  background-position: 75% 85.7142857143%;
+}
+.sprite-tile.sprite-statue-f {
+  background-position: 75% 100%;
+}
+.sprite-tile.sprite-statue-b {
+  background-position: 87.5% 71.4285714286%;
+}
+.sprite-tile.sprite-character-01 {
+  background-position: 87.5% 28.5714285714%;
+}
+.sprite-tile.sprite-character-02 {
+  background-position: 100% 28.5714285714%;
+}
+.sprite-tile.sprite-character-03 {
+  background-position: 50% 42.8571428571%;
+}
+.sprite-tile.sprite-character-04 {
+  background-position: 50% 57.1428571429%;
+}
+.sprite-tile.sprite-character-05 {
+  background-position: 50% 71.4285714286%;
+}
+.sprite-tile.sprite-character-06 {
+  background-position: 50% 85.7142857143%;
+}
+.sprite-tile.sprite-character-07 {
+  background-position: 50% 100%;
+}
+.sprite-tile.sprite-character-08 {
+  background-position: 62.5% 42.8571428571%;
+}
+.sprite-tile.sprite-character-09 {
+  background-position: 75% 42.8571428571%;
+}
+.sprite-tile.sprite-character-10 {
+  background-position: 87.5% 42.8571428571%;
+}
+.sprite-tile.sprite-livestock-b-x-d {
+  background-position: 0% 0%;
+}
+.sprite-tile.sprite-livestock-v-x-x {
+  background-position: 25% 0%;
+}
+.sprite-tile.sprite-livestock-h-x-x {
+  background-position: 37.5% 0%;
+}
+.sprite-tile.sprite-livestock-f-x-x {
+  background-position: 12.5% 14.2857142857%;
+}
+.sprite-tile.sprite-livestock-h-s-x {
+  background-position: 12.5% 28.5714285714%;
+}
+.sprite-tile.sprite-livestock-f-s-x {
+  background-position: 12.5% 42.8571428571%;
+}
+.sprite-tile.sprite-livestock-f-s-x {
+  background-position: 12.5% 57.1428571429%;
+}
+.sprite-tile.sprite-livestock-b-s-x {
+  background-position: 12.5% 71.4285714286%;
+}
+.sprite-tile.sprite-livestock-v-s-x {
+  background-position: 12.5% 85.7142857143%;
+}
+.sprite-tile.sprite-wheat-v-s-x {
+  background-position: 12.5% 0%;
+}
+.sprite-tile.sprite-wheat-f-x-x {
+  background-position: 50% 0%;
+}
+.sprite-tile.sprite-wheat-v-x-x {
+  background-position: 62.5% 0%;
+}
+.sprite-tile.sprite-wheat-h-x-x {
+  background-position: 75% 0%;
+}
+.sprite-tile.sprite-wheat-f-x-d {
+  background-position: 0% 14.2857142857%;
+}
+.sprite-tile.sprite-wheat-b-x-x {
+  background-position: 0% 28.5714285714%;
+}
+.sprite-tile.sprite-wheat-f-x-x {
+  background-position: 0% 42.8571428571%;
+}
+.sprite-tile.sprite-wheat-h-s-x {
+  background-position: 0% 57.1428571429%;
+}
+.sprite-tile.sprite-wheat-h-s-x {
+  background-position: 0% 71.4285714286%;
+}
+.sprite-tile.sprite-wheat-f-s-x {
+  background-position: 0% 85.7142857143%;
+}
+.sprite-tile.sprite-wheat-b-s-x {
+  background-position: 0% 100%;
+}
+.sprite-tile.sprite-fish-v-x-x {
+  background-position: 25% 28.5714285714%;
+}
+.sprite-tile.sprite-fish-h-x-x {
+  background-position: 25% 42.8571428571%;
+}
+.sprite-tile.sprite-fish-v-x-d {
+  background-position: 100% 42.8571428571%;
+}
+.sprite-tile.sprite-fish-v-s-x {
+  background-position: 75% 57.1428571429%;
+}
+.sprite-tile.sprite-fish-b-s-x {
+  background-position: 87.5% 57.1428571429%;
+}
+.sprite-tile.sprite-fish-h-s-x {
+  background-position: 100% 57.1428571429%;
+}
+.sprite-tile.sprite-fish-f-x-x {
+  background-position: 62.5% 57.1428571429%;
+}
+.sprite-tile.sprite-fish-b-x-x {
+  background-position: 62.5% 85.7142857143%;
+}
+.sprite-tile.sprite-marble-h-x-x {
+  background-position: 25% 14.2857142857%;
+}
+.sprite-tile.sprite-marble-h-s-x {
+  background-position: 50% 28.5714285714%;
+}
+.sprite-tile.sprite-marble-f-x-d {
+  background-position: 37.5% 42.8571428571%;
+}
+.sprite-tile.sprite-marble-v-x-x {
+  background-position: 37.5% 57.1428571429%;
+}
+.sprite-tile.sprite-marble-b-x-x {
+  background-position: 37.5% 71.4285714286%;
+}
+.sprite-tile.sprite-marble-v-s-x {
+  background-position: 37.5% 85.7142857143%;
+}
+.sprite-tile.sprite-marble-b-s-x {
+  background-position: 37.5% 100%;
+}
+.sprite-tile.sprite-ivory-h-x-x {
+  background-position: 100% 0%;
+}
+.sprite-tile.sprite-ivory-b-x-d {
+  background-position: 62.5% 14.2857142857%;
+}
+.sprite-tile.sprite-ivory-f-x-x {
+  background-position: 75% 14.2857142857%;
+}
+.sprite-tile.sprite-ivory-f-s-x {
+  background-position: 87.5% 14.2857142857%;
+}
+.sprite-tile.sprite-ivory-b-s-x {
+  background-position: 100% 14.2857142857%;
+}
+.sprite-tile.sprite-ivory-v-s-x {
+  background-position: 37.5% 28.5714285714%;
+}
+.sprite-tile.sprite-ebony-h-x-x {
+  background-position: 87.5% 0%;
+}
+.sprite-tile.sprite-ebony-h-s-x {
+  background-position: 37.5% 14.2857142857%;
+}
+.sprite-tile.sprite-ebony-v-s-x {
+  background-position: 50% 14.2857142857%;
+}
+.sprite-tile.sprite-ebony-v-x-d {
+  background-position: 25% 57.1428571429%;
+}
+.sprite-tile.sprite-ebony-f-x-x {
+  background-position: 25% 71.4285714286%;
+}
+.sprite-tile.sprite-ebony-f-s-x {
+  background-position: 25% 85.7142857143%;
+}
+.sprite-tile.sprite-ebony-b-s-x {
+  background-position: 25% 100%;
+}
+
+.sprite.sprite-tile.corruption-tile {
+  background-image: url(img/corruption.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sprite-deben {
+  background-image: url(img/deben.png);
+  background-size: 800% 100%;
+  background-position: 0 0;
+}
+.sprite-deben.sprite-deben-back {
+  background-position: 100% 0;
+}
+.sprite-deben.sprite-deben-3 {
+  background-position: 0 0;
+}
+.sprite-deben.sprite-deben-4 {
+  background-position: 14.3% 0;
+}
+.sprite-deben.sprite-deben-5 {
+  background-position: 28.6% 0;
+}
+.sprite-deben.sprite-deben-6 {
+  background-position: 42.9% 0;
+}
+.sprite-deben.sprite-deben-7 {
+  background-position: 57.1% 0;
+}
+.sprite-deben.sprite-deben-8 {
+  background-position: 71.4% 0;
+}
+.sprite-deben.sprite-deben-9 {
+  background-position: 85.7% 0;
+}
+
+.sprite-ankh {
+  background-image: url(img/ankh_dark_pointers.png);
+  background-size: 400% 100%;
+  pointer-events: none;
+}
+.sprite-ankh.token {
+  z-index: 1;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, top 0.5s ease-in-out, left 0.5s ease-in-out !important;
+}
+.sprite-ankh.sprite-ankh-v {
+  background-position: 0 0;
+}
+.sprite-ankh.sprite-ankh-h {
+  background-position: 100% 0;
+}
+.sprite-ankh.sprite-ankh-f {
+  background-position: 33.333% 0;
+}
+.sprite-ankh.sprite-ankh-b {
+  background-position: 66.666% 0;
+}
+.sprite-ankh.ankh-hidden {
+  display: none;
+}
+a .sprite-ankh {
+  width: 20px;
+  height: 20px;
+}
+
+#background-holder {
+  background-image: url(img/blurry_background.png);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.scarab-icon {
+  background-image: url(img/scarab.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+@keyframes border-glow {
+  0% {
+    box-shadow: 0 0 0 0 white;
+  }
+  20% {
+    box-shadow: 0 0 0 2pt white;
+  }
+  80% {
+    box-shadow: 0 0 0 2pt white;
+  }
+  100% {
+    box-shadow: 0 0 0 0 white;
+  }
+}
+.bgabutton_gray.not-allowed {
+  cursor: not-allowed;
+}
+
+.bgabutton .sprite.sprite-ankh {
+  width: 50px;
+  height: 50px;
+}
+
+.gamestate_orientation #generalactions {
+  white-space: nowrap;
+}
+
+#sbk-game-holder {
+  position: relative;
+}
+#sbk-game-holder .whiteblock {
+  border-radius: 5px;
+}
+#sbk-game-holder #sbk-extra {
+  text-align: center;
+  display: none;
+}
+#sbk-game-holder #sbk-extra .sprite {
+  display: inline-block;
+  margin: 0 !important;
+  cursor: pointer;
+}
+#sbk-game-holder.layout-narrow {
+  text-align: center;
+}
+#sbk-game-holder.layout-narrow #sbk-sidebar {
+  text-align: left;
+}
+#sbk-game-holder.layout-wide #sbk-main-holder {
+  display: flex;
+  justify-content: center;
+}
+#sbk-game-holder.layout-wide #sbk-sidebar {
+  flex-grow: 1;
+  vertical-align: top;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+#sbk-game-holder.layout-wide #sbk-sidebar .whiteblock {
+  flex-grow: 1;
+}
+#sbk-game-holder.layout-wide #sbk-sidebar #sbk-hand-holder {
+  margin-top: 0;
+}
+#sbk-game-holder.layout-wide #sbk-sidebar #sbk-corruption-holder {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#sbk-game-holder.layout-wide #sbk-board-holder {
+  flex-shrink: 0;
+}
+#sbk-game-holder #sbk-corruption-holder {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  background-image: none;
+  color: white;
+}
+#sbk-game-holder #sbk-hand-holder {
+  position: relative;
+}
+#sbk-game-holder #sbk-hand-holder .sprite-tile {
+  cursor: pointer;
+  border: 2px solid #ffffff00;
+  background-clip: padding-box;
+}
+#sbk-game-holder #sbk-hand-holder .sprite-tile.selected {
+  border: 2px solid red;
+}
+#sbk-game-holder #sbk-game-scoring {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  position: absolute;
+  padding: 10%;
+  box-sizing: border-box;
+  display: none;
+}
+#sbk-game-holder #sbk-game-scoring table {
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+}
+.browser-apple #sbk-game-holder #sbk-game-scoring table {
+  table-layout: auto;
+}
+#sbk-game-holder #sbk-game-scoring table td {
+  text-align: center;
+}
+#sbk-game-holder #sbk-game-scoring table td.first-column {
+  border-right: 2px solid black;
+  width: 90px;
+}
+#sbk-game-holder #sbk-game-scoring table td.player-column {
+  width: calc(50% - 45px);
+}
+#sbk-game-holder #sbk-game-scoring table tr.line-below {
+  border-bottom: 2px solid black;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite {
+  margin: auto !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-tile, #sbk-game-holder #sbk-game-scoring table .sprite.sprite-deben {
+  height: 50px !important;
+  width: 50px !important;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-tile.small-tile, #sbk-game-holder #sbk-game-scoring table .sprite.sprite-deben.small-tile {
+  height: 25px !important;
+  width: 25px !important;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-pirogue {
+  height: 50px !important;
+  width: 57.66px !important;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-pirogue.small-tile {
+  height: 25px !important;
+  width: 28.83px !important;
+}
+#sbk-game-holder .sbk-sets {
+  text-align: left;
+}
+#sbk-game-holder .sbk-sets .sold-sets {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#sbk-game-holder .sbk-sets .sold-sets .sold-set {
+  position: relative;
+  flex-basis: 50%;
+  margin-top: 10px;
+}
+#sbk-game-holder .sbk-sets .sold-sets .sold-set .sprite-pirogue {
+  margin: 0 10px 0 0 !important;
+  display: inline-block !important;
+}
+#sbk-game-holder .sbk-sets .sold-sets .sold-set .sprite {
+  vertical-align: middle;
+}
+#sbk-game-holder .normal-tiles .sprite-tile {
+  margin: 0 !important;
+  display: inline-block;
+}
+#sbk-game-holder #sbk-board-holder {
+  vertical-align: top;
+  position: relative;
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(img/board.png);
+}
+#sbk-game-holder #sbk-board-holder .token {
+  position: absolute;
+  left: 0;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+.browser-apple #sbk-game-holder #sbk-board-holder .token {
+  transition: none !important;
+}
+.gamestate_pirogue #sbk-game-holder #sbk-board-holder .token.sprite-pirogue {
+  cursor: pointer;
+}
+.gamestate_pirogue #sbk-game-holder #sbk-board-holder .token.sprite-pirogue:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+#sbk-game-holder #sbk-board-holder .token.sprite-tile:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+#sbk-game-holder #sbk-board-holder .token.available {
+  cursor: pointer;
+  animation-name: border-glow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.browser-apple #sbk-game-holder #sbk-board-holder .token.available {
+  animation-name: none !important;
+  border: 2px solid white;
+}
+.gamestate_playerTurn #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available), .gamestate_playerTurn2 #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available), .gamestate_pirogue04 #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available) {
+  /*opacity: 0.4;*/
+}
+.gamestate_playerTurn #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available):hover, .gamestate_playerTurn2 #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available):hover, .gamestate_pirogue04 #sbk-game-holder #sbk-board-holder .token.sprite-tile:not(.available):hover {
+  transform: scale(1) !important;
+}
+#sbk-game-holder #sbk-board-holder .token.opaque {
+  opacity: 1 !important;
+}
+#sbk-game-holder #sbk-board-holder #pirogue-holder .pirogue-slot-0 {
+  top: 18%;
+}
+#sbk-game-holder #sbk-board-holder #pirogue-holder .pirogue-slot-1 {
+  top: 34%;
+}
+#sbk-game-holder #sbk-board-holder #pirogue-holder .pirogue-slot-2 {
+  top: 53%;
+}
+#sbk-game-holder #sbk-board-holder #pirogue-holder .pirogue-slot-3 {
+  top: 72.5%;
+}
+#sbk-game-holder #sbk-board-holder #pirogue-holder .pirogue-slot-4 {
+  top: 91%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-0 {
+  left: 26.5%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-1 {
+  left: 38.8%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-2 {
+  left: 51.5%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-3 {
+  left: 64.3%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-4 {
+  left: 76.7%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-x-5 {
+  left: 89.1%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-0 {
+  top: 17%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-1 {
+  top: 31.4%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-2 {
+  top: 45.9%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-3 {
+  top: 60.3%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-4 {
+  top: 75%;
+}
+#sbk-game-holder #sbk-board-holder #tiles-holder .tile-y-5 {
+  top: 89.5%;
+}
+#sbk-game-holder #sbk-board-holder #deck-holder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  transform: scale(0.5);
+  transform-origin: top left;
+}
+#sbk-game-holder #sbk-board-holder #deck-holder .sprite-tile {
+  margin: 0 !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+#sbk-game-holder #sbk-board-holder #deck-holder span {
+  vertical-align: middle;
+  font-size: 3em;
+  margin: 0 15px 0 30px;
+}
+#sbk-game-holder .token {
+  position: absolute;
+}
+#sbk-game-holder .sprite {
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.cp_board table {
+  width: 100%;
+}
+.cp_board table.table-row-2 td {
+  width: 50%;
+}
+.cp_board table.table-row-3 td {
+  width: 33.3333%;
+}
+.cp_board table td {
+  padding-top: 8px;
+}
+.cp_board table div, .cp_board table span {
+  vertical-align: middle;
+}
+.cp_board .sprite-tile {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.cp_board .sprite-deben {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+}
+.cp_board .sprite-pirogue {
+  display: inline-block;
+  width: 58px;
+  height: 50px;
+  margin-top: 8px;
+}
+.cp_board .hand-backs-holder .sprite-tile {
+  margin-top: 5px;
+}
+
+#sbk-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -10px;
+  right: 0;
+  z-index: 99999;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+#sbk-modal #player-aid-pirogue {
+  background-image: url(img/aid_pirogue.jpg);
+  width: 724px;
+  height: 713px;
+  margin: auto;
+  margin-top: calc(50vh - 713px/2);
+  position: relative;
+  font-size: 0.9em;
+  border-radius: 10px;
+}
+#sbk-modal #player-aid-pirogue p, #sbk-modal #player-aid-pirogue h1 {
+  margin: 0;
+  padding: 0;
+}
+#sbk-modal #player-aid-pirogue h1 {
+  position: absolute;
+  color: white;
+  top: 25px;
+  width: 100%;
+  text-align: center;
+}
+#sbk-modal #player-aid-pirogue .pa {
+  width: 216px;
+  position: absolute;
+}
+#sbk-modal #player-aid-pirogue .pa-pyramid {
+  left: 135px;
+  top: 100px;
+}
+#sbk-modal #player-aid-pirogue .pa-scarabs {
+  left: 135px;
+  top: 230px;
+}
+#sbk-modal #player-aid-pirogue .pa-mummy {
+  left: 135px;
+  top: 400px;
+}
+#sbk-modal #player-aid-pirogue .pa-snakes {
+  left: 135px;
+  top: 535px;
+}
+#sbk-modal #player-aid-pirogue .pa-7deben {
+  left: 495px;
+  top: 100px;
+}
+#sbk-modal #player-aid-pirogue .pa-2deben {
+  left: 495px;
+  top: 230px;
+}
+#sbk-modal #player-aid-pirogue .pa-horus {
+  left: 495px;
+  top: 360px;
+}
+#sbk-modal #player-aid-pirogue .pa-finger {
+  left: 495px;
+  top: 490px;
+}
+#sbk-modal #player-aid-character {
+  background-image: url(img/aid_characters.jpg);
+  width: 729px;
+  height: 693px;
+  margin: auto;
+  margin-top: calc(50vh - 693px/2);
+  position: relative;
+  font-size: 0.9em;
+  border-radius: 10px;
+}
+#sbk-modal #player-aid-character p, #sbk-modal #player-aid-character h1, #sbk-modal #player-aid-character h2 {
+  margin: 0;
+  padding: 0;
+}
+#sbk-modal #player-aid-character h1 {
+  position: absolute;
+  color: white;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+}
+#sbk-modal #player-aid-character h2 {
+  color: #B04B37;
+}
+#sbk-modal #player-aid-character .pa {
+  width: 221px;
+  position: absolute;
+}
+#sbk-modal #player-aid-character .pa-architect {
+  left: 130px;
+  top: 107px;
+}
+#sbk-modal #player-aid-character .pa-high-priest {
+  left: 130px;
+  top: 250px;
+}
+#sbk-modal #player-aid-character .pa-courtesan {
+  left: 130px;
+  top: 430px;
+}
+#sbk-modal #player-aid-character .pa-merchant {
+  left: 130px;
+  top: 570px;
+}
+#sbk-modal #player-aid-character .pa-queen {
+  left: 490px;
+  top: 107px;
+}
+#sbk-modal #player-aid-character .pa-vizier {
+  left: 490px;
+  top: 250px;
+}
+#sbk-modal #player-aid-character .pa-scribe {
+  left: 490px;
+  top: 380px;
+}
+#sbk-modal #player-aid-character .pa-thief {
+  left: 490px;
+  top: 525px;
+}
+
+#logs .sprite-pirogue, .chatwindowlogs .sprite-pirogue {
+  display: block;
+  width: 58px;
+  height: 50px;
+  margin-top: 8px;
+}
+#logs .sprite-tile, .chatwindowlogs .sprite-tile {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin-top: 8px;
+}
+#logs .sprite-tile.sprite-ib, .chatwindowlogs .sprite-tile.sprite-ib {
+  display: inline-block;
+}
+
+.dijitTooltip .sprite-tile-holder {
+  line-height: 30px;
+  margin-top: 8px;
+}
+.dijitTooltip .sprite-tile {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+@keyframes wave {
+  from {
+    transform: translateY(1px);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}
+.wavetext > span span {
+  display: inline-block;
+  animation-duration: 0.3s;
+  animation-name: wave;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.wavetext > span :nth-child(20n+0) {
+  animation-delay: calc(-20s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+1) {
+  animation-delay: calc(-19s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+2) {
+  animation-delay: calc(-18s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+3) {
+  animation-delay: calc(-17s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+4) {
+  animation-delay: calc(-16s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+5) {
+  animation-delay: calc(-15s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+6) {
+  animation-delay: calc(-14s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+7) {
+  animation-delay: calc(-13s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+8) {
+  animation-delay: calc(-12s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+9) {
+  animation-delay: calc(-11s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+10) {
+  animation-delay: calc(-10s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+11) {
+  animation-delay: calc(-9s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+12) {
+  animation-delay: calc(-8s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+13) {
+  animation-delay: calc(-7s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+14) {
+  animation-delay: calc(-6s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+15) {
+  animation-delay: calc(-5s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+16) {
+  animation-delay: calc(-4s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+17) {
+  animation-delay: calc(-3s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+18) {
+  animation-delay: calc(-2s * 2 * 0.3 / 40 );
+}
+
+.wavetext > span :nth-child(20n+19) {
+  animation-delay: calc(-1s * 2 * 0.3 / 40 );
+}
+
+/*# sourceMappingURL=sobektwoplayerstreasurespharaoh.css.map */
