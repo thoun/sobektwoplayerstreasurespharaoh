@@ -1750,6 +1750,25 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			"can_sell" => $can_sell,
 		);
 	}
+
+	function argOrientation() {
+		$possibleDirections = [];
+
+		foreach(['v', 'h', 'f', 'b'] as $direction) {
+			$possibleDirections[$direction] = count(self::availableTiles($direction)) > 0;
+		}
+
+		// in case there is no possible direction, we don't gray the buttons
+		if (!in_array(true, $possibleDirections)) {
+			foreach(['v', 'h', 'f', 'b'] as $direction) {
+				$possibleDirections[$direction] = true;
+			}
+		}
+
+		return [
+			'possibleDirections' => $possibleDirections,
+		];
+	}
 	
 	function notifyHandChange($player_id) {
 		$hand = Tile::getHand( $player_id );

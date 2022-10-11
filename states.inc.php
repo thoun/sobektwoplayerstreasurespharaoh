@@ -59,6 +59,7 @@ $machinestates = array(
 		"description" => clienttranslate('${actplayer} must choose the orientation of the Ankh pawn'),
 		"descriptionmyturn" => clienttranslate('${you} must choose the orientation of the Ankh pawn'),
 		"type" => "activeplayer",
+		"args" => "argOrientation",
 		"possibleactions" => array( "answer" ),
 		"transitions" => array( "next" => 10 )
 	),

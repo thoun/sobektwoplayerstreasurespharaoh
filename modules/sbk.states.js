@@ -1,6 +1,5 @@
 function onEnteringState( stateName, args ) {
-	console.log( 'Entering state: '+stateName );
-	console.log( args );
+	console.log( 'Entering state: '+stateName, args );
 	this.stateName = stateName;
 	
 	dojo.query('.sprite-tile', $('sbk-my-hand')).removeClass('selected');
@@ -224,10 +223,11 @@ function onUpdateActionButtons( stateName, args ) {
 				this.addActionButton( 'no_button', _('Keep tile'), 'onAnswer' );
 				break;
 			case 'orientation':
-				this.addActionButton( 'v_button', '<div class="sprite sprite-ankh sprite-ankh-v"></div>', 'onAnswer' );
-				this.addActionButton( 'f_button', '<div class="sprite sprite-ankh sprite-ankh-f"></div>', 'onAnswer' );
-				this.addActionButton( 'h_button', '<div class="sprite sprite-ankh sprite-ankh-h"></div>', 'onAnswer' );
-				this.addActionButton( 'b_button', '<div class="sprite sprite-ankh sprite-ankh-b"></div>', 'onAnswer' );
+				['v', 'f', 'h', 'b'].forEach(orientation => {
+					this.addActionButton( `${orientation}_button`, `<div class="sprite sprite-ankh sprite-ankh-${orientation}"></div>`, 'onAnswer' );
+
+					document.getElementById(`${orientation}_button`).classList.toggle('disabled', !args.possibleDirections[orientation]);
+				});
 				break;
 			case 'pickResource':
 				this.addActionButton( 'wheat_button', _('Wheat'), 'onAnswer' );
