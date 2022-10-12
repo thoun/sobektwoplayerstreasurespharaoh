@@ -260,6 +260,18 @@ function handleDiscardDeben( notif ) {
 	}
 }
 
+function handleDiscardRoyalCorruption( notif ) {
+	const playerId = notif.args.player_id;
+	const royalCorruption = notif.args.royalCorruption;
+
+	const sprites = Array.from(document.getElementById('royal-corruption-holder-p'+playerId).getElementsByClassName('sprite-royal-corruption'));
+	if (royalCorruption) {
+		sprites.find(div => div.classList.contains('sprite-royal-corruption-'+royalCorruption.value)).remove();
+	} else if (playerId != this.player_id) {
+		sprites[sprites.length - 1].remove();
+	}
+}
+
 function handleDeben( notif ) {
 	const playerId = notif.args.player_id;
 	const deben = notif.args.deben;
@@ -664,6 +676,7 @@ function setupNotifications( ) {
 	dojo.subscribe("discardDeben", handleDiscardDeben.bind(this));
 	dojo.subscribe("royalCorruption", handleRoyalCorruption.bind(this));
 	dojo.subscribe("revealRoyalCorruption", handleRevealRoyalCorruption.bind(this));
+	dojo.subscribe("discardRoyalCorruption", handleDiscardRoyalCorruption.bind(this));
 	dojo.subscribe("ankhDir", handleAnkhDir.bind(this));
 	dojo.subscribe("sold", handleSold.bind(this));
 	dojo.subscribe("updateScores", handleUpdateScores.bind(this));

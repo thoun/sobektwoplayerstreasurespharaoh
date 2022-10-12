@@ -432,10 +432,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		}
 		
 		$ability = $tile["ability"];
-		$padability = "10";
-		if ($ability < 10) {
-			$padability = "0" . $ability;	
-		}
+		$padability = str_pad($ability, 2, "0", STR_PAD_LEFT);
 		
 		Tile::discard($tile);
 		self::notifyAllPlayers( "discardTile", clienttranslate('${player_name} plays a Character: ${image}'), array(
@@ -501,6 +498,31 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		} else if ($ability == 9 || $ability == 10) {
 			// Opponent must discard down to 6 tiles in hand (extras to corruption)
 			$transition = "characterScribe";
+		} else if ($ability == 11) {
+			$royalCorruptions = RoyalCorruption::getOwned($player_id);
+
+			if (count($royalCorruptions) > 0) {
+				$discardedRoyalCorruption = $royalCorruptions[0];
+				// we take the royal corruption token with the highest value
+				foreach($royalCorruptions as $royalCorruption) {
+					if (intval($royalCorruption['value']) > intval($discardedRoyalCorruption['value'])) {
+						$discardedRoyalCorruption = $royalCorruption;
+					}
+				}
+
+				self::DbQuery("UPDATE `royal_corruption` SET `location`='discard' WHERE `royal_corruption_id` = $discardedRoyalCorruption[royal_corruption_id]");
+
+				self::notifyPlayer( $player_id, "discardRoyalCorruption", '', array(
+					'player_id' => $player_id,
+					'royalCorruption' => $discardedRoyalCorruption,
+				));
+				
+				self::notifyAllPlayers( "discardRoyalCorruption", '', array(
+					'player_id' => $player_id,
+				));
+			} else {
+				self::notifyAllPlayers("log", clienttranslate('There is no royal corruption token to discard'), []);
+			}
 		}
 				
 		// Play character!

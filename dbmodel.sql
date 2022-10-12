@@ -46,7 +46,7 @@ ALTER TABLE `player` ADD `player_seen_pirogues` SMALLINT UNSIGNED NOT NULL DEFAU
 CREATE TABLE IF NOT EXISTS `royal_corruption` (
 	`royal_corruption_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	`value` tinyint(11),
-	`location` enum('bag', 'player') DEFAULT 'bag' NOT NULL,
+	`location` enum('bag', 'player', 'discard') DEFAULT 'bag' NOT NULL,
 	`player_id` int(11) unsigned DEFAULT NULL,
 	PRIMARY KEY (`royal_corruption_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
