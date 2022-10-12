@@ -1341,6 +1341,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 	
 	function stFinalScoring() {
 		self::setGameStateValue( 'game_ended', 1 );
+		$isTreasuresOfThePharaohExpansion = $this->isTreasuresOfThePharaohExpansion();
 		
 		$player_id = self::getActivePlayerId();
 		$opponent_player_id = self::getPlayerAfter( $player_id );
@@ -1438,7 +1439,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		$total_and_tie_points = array();
 		foreach ($players as $pid => $p) {
 			// Reveal Debens to the other player
-			self::notifyPlayer( self::getPlayerAfter($pid), "revealDebens", '', array(
+			self::notifyAllPlayers("revealDebens", '', array(
 				'player_id' => $pid,
 				'debens' => Deben::getOwned($pid)
 			));
@@ -1451,15 +1452,17 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			// Add on pirogues...
 			$pirogues = Pirogue::getOwned($pid);
 
-			$royalCorruptions = RoyalCorruption::getOwned($pid);
-			// Reveal royal corruption to the other player
-			self::notifyPlayer( self::getPlayerAfter($pid), "revealRoyalCorruptions", '', array(
-				'player_id' => $pid,
-				'royalCorruptions' => $royalCorruptions,
-			));
-			// Add royal corruption
-			foreach ($royalCorruptions as $royalCorruption) {
-				$amount_corruption[$pid] += intval($royalCorruption['value']);
+			if ($isTreasuresOfThePharaohExpansion) {
+				$royalCorruptions = RoyalCorruption::getOwned($pid);
+				// Reveal royal corruption to the other player
+				self::notifyAllPlayers("revealRoyalCorruptions", '', array(
+					'player_id' => $pid,
+					'royalCorruptions' => $royalCorruptions,
+				));
+				// Add royal corruption
+				foreach ($royalCorruptions as $royalCorruption) {
+					$amount_corruption[$pid] += intval($royalCorruption['value']);
+				}
 			}
 
 			foreach ($pirogues as $pirogue) {

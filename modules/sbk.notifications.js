@@ -243,6 +243,9 @@ function handleRevealRoyalCorruptions( notif ) {
 		for (let i in royalCorruptions) {
 			const d = royalCorruptions[i];
 			dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-'+d.value+'"></div> ', $('royal-corruption-holder-p'+playerId) );
+
+			$('corruption_pirogue_num_holder_p' + playerId).style.display = 'inline';
+			$('corruption_pirogue_num_p' + playerId).innerHTML = Number($('corruption_pirogue_num_p' + playerId).innerHTML) + Number(d.value);
 		}
 	}
 }
@@ -620,7 +623,7 @@ function handleGameEndScoring( notif ) {
 			}, 12 * x + (i - 1) * x);
 		}
 		
-		// Priogues
+		// Pirogues
 		{
 			const tds = dojo.query('#scoring-row-pirogue td');
 			const td = tds[i];
