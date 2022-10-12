@@ -106,6 +106,12 @@ function handleTakeTile( notif ) {
 			this.fadeOutAndDestroy( q[i], 500, 0 );
 		}
 	}
+
+	if (playerId != this.player_id) {
+		if (tile.deck == 'pharaoh') {
+			dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-back"></div> ', $('royal-corruption-holder-p'+playerId) );
+		}
+	}
 }
 
 function handleDrawTiles( notif ) {
@@ -229,6 +235,19 @@ function handleRevealDebens( notif ) {
 	}
 }
 
+function handleRevealRoyalCorruption( notif ) {
+	const playerId = notif.args.player_id;
+	let royalCorruption = notif.args.royalCorruption;
+	
+	if (royalCorruption) {
+		$('royal-corruption-holder-p'+playerId).innerHTML = '';
+		for (let i in royalCorruption) {
+			const d = royalCorruption[i];
+			dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-'+d.value+'"></div> ', $('royal-corruption-holder-p'+playerId) );
+		}
+	}
+}
+
 function handleDiscardDeben( notif ) {
 	const playerId = notif.args.player_id;
 	const deben = notif.args.deben;
@@ -256,6 +275,25 @@ function handleDeben( notif ) {
 	} else {
 		if (playerId != this.player_id) {
 			dojo.place( '<div class="sprite sprite-deben sprite-deben-back"></div> ', $('deben-holder-p'+playerId) );
+		}
+	}
+}
+
+function handleRoyalCorruption( notif ) {
+	const playerId = notif.args.player_id;
+	const royalCorruption = notif.args.royalCorruption;
+	let royalCorruptions = notif.args.royalCorruptions;
+	
+	if (royalCorruption) {
+		dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-'+royalCorruption.value+'"></div> ', $('royal-corruption-holder-p'+playerId) );
+	} else if (royalCorruptions != null) {
+		for (let i in royalCorruptions) {
+			const d = royalCorruptions[i];
+			dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-'+d.value+'"></div> ', $('royal-corruption-holder-p'+playerId) );
+		}
+	} else {
+		if (playerId != this.player_id) {
+			dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-back"></div> ', $('royal-corruption-holder-p'+playerId) );
 		}
 	}
 }
@@ -624,6 +662,8 @@ function setupNotifications( ) {
 	dojo.subscribe("deben", handleDeben.bind(this));
 	dojo.subscribe("revealDebens", handleRevealDebens.bind(this));
 	dojo.subscribe("discardDeben", handleDiscardDeben.bind(this));
+	dojo.subscribe("royalCorruption", handleRoyalCorruption.bind(this));
+	dojo.subscribe("revealRoyalCorruption", handleRevealRoyalCorruption.bind(this));
 	dojo.subscribe("ankhDir", handleAnkhDir.bind(this));
 	dojo.subscribe("sold", handleSold.bind(this));
 	dojo.subscribe("updateScores", handleUpdateScores.bind(this));

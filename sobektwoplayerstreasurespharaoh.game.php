@@ -650,8 +650,6 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 					'player_id' => $player_id,
 					'resource_score' => $score
 				));
-
-				// TODOTP take royal corruption
 				
 				$this->gamestate->nextState( "next" );
 			} else {
@@ -1076,6 +1074,22 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			if (! $found) {
 				throw new BgaUserException( self::_("That tile is not permitted by the Ankh pawn") );
 			}
+		}
+
+		if ($tile["deck"] == 'pharaoh') {
+			// Draw a random Deben tile
+			$royalCorruption = RoyalCorruption::draw( $player_id );
+			
+			if ($royalCorruption == null) {
+				throw new BgaUserException( self::_("There are no Royal corruption tokens left") );
+			}
+			
+			self::notifyPlayer( $player_id, "royalCorruption", '', array(
+				'player_id' => $player_id,
+				'player_name' => self::getActivePlayerName(),
+				
+				'royalCorruption' => $royalCorruption,
+			));
 		}
 		
 		// Depending on state...
