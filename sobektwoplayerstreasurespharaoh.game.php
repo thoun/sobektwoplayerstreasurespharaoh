@@ -1451,8 +1451,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			// Add on pirogues...
 			$pirogues = Pirogue::getOwned($pid);
 
-			// Add royal corruption
 			$royalCorruptions = RoyalCorruption::getOwned($pid);
+			// Reveal royal corruption to the other player
+			self::notifyPlayer( self::getPlayerAfter($pid), "revealRoyalCorruptions", '', array(
+				'player_id' => $pid,
+				'royalCorruptions' => $royalCorruptions,
+			));
+			// Add royal corruption
 			foreach ($royalCorruptions as $royalCorruption) {
 				$amount_corruption[$pid] += intval($royalCorruption['value']);
 			}

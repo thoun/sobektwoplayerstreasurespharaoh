@@ -176,7 +176,7 @@ function onPlayCharacter() {
 	const q = dojo.query('.sprite-tile.selected', $('sbk-my-hand'));
 
 	if (q.length == 1) {
-		this.playCharacter(q[0].tile.tile_id);
+		playCharacter.bind(this)(q[0].tile.tile_id);
 	}
 }
 
