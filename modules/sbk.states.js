@@ -254,7 +254,7 @@ function onUpdateActionButtons( stateName, args ) {
 				if (dojo.query('.sold-set[data-resource="ebony"]', soldSetsHolder11).length > 0)
 					this.addActionButton( 'ebony_button', _('Ebony'), 'onAnswer' );
 				break;
-			case 'characterHighPriest':
+			case 'characterHighPriest': // TODOTP : can this character remove pharao tiles ?
 				const resources = ['wheat', 'fish', 'livestock', 'marble', 'ebony', 'ivory'];
 				const counts = { wheat: 0, fish: 0, livestock: 0, marble: 0, ebony: 0, ivory: 0, statue: 0 };
 				const q = dojo.query('.sprite-tile', $('sbk-my-corruption'));
@@ -276,7 +276,10 @@ function onUpdateActionButtons( stateName, args ) {
 					this.addActionButton( r + '_button', _(capR) + ' ('+counts[r]+')', 'onAnswer' );
 				}
 				break;
-			
+			case 'characterSpy':
+				args.playedCharacters.forEach(character => 
+					this.addActionButton( `playCharacter${character['tile_id']}_button`, `<div class="sprite sprite-tile  sprite-character-${character['ability'].toString().padStart(2, '0')}"></div>`, () => playCharacter.bind(this)(character['tile_id']) )
+				);
 		}
 	}
 }

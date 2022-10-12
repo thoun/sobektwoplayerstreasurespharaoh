@@ -173,21 +173,25 @@ function onAnswer( event ) {
 function onPlayCharacter() {
 	dojo.stopEvent( event );
 	
+	const q = dojo.query('.sprite-tile.selected', $('sbk-my-hand'));
+
+	if (q.length == 1) {
+		this.playCharacter(q[0].tile.tile_id);
+	}
+}
+
+function playCharacter(tile_id) {	
 	if ( ! this.checkAction( 'playCharacter' ) ) {
 		return;
 	}
 	
-	const q = dojo.query('.sprite-tile.selected', $('sbk-my-hand'));
-	
-	if (q.length == 1) {
-		this.ajaxcall( "/sobektwoplayerstreasurespharaoh/sobektwoplayerstreasurespharaoh/playCharacter.html", { 
-			lock: true,
-			tile_id: q[0].tile.tile_id,
-		}, this,
-			function( result ) {},
-			function( is_error) {}
-		);
-	}
+	this.ajaxcall( "/sobektwoplayerstreasurespharaoh/sobektwoplayerstreasurespharaoh/playCharacter.html", { 
+		lock: true,
+		tile_id: tile_id,
+	}, this,
+		function( result ) {},
+		function( is_error) {}
+	);
 }
 
 function onSellSet() {

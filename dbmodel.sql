@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `tile` (
 	`scarabs` tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	`deben` tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	`ability` tinyint(1) unsigned,
-	`location` enum('discard', 'deck', 'board', 'hand', 'sold', 'corruption') NOT NULL,
+	`location` enum('discard', 'deck', 'board', 'hand', 'sold', 'corruption', 'played') NOT NULL,
 	`just_sold` tinyint(11) unsigned DEFAULT '0',
 	`col` tinyint(11) unsigned,
 	`row` tinyint(11) unsigned,

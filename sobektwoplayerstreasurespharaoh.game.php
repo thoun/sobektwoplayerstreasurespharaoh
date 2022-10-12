@@ -424,17 +424,26 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		if (! isset($tile)) {
 			throw new BgaVisibleSystemException( "Tile doesn't exist." );
 		}
-		if ($tile["location"] != "hand" || $tile["player_id"] != $player_id) {
-			throw new BgaVisibleSystemException( "You can only play tiles in your hand." );
-		}
+
 		if ($tile["deck"] != "character") {
 			throw new BgaVisibleSystemException( "That is not a character tile." );
+		}
+
+		$state = $this->gamestate->state();
+		if ($state['name'] == 'characterSpy') {
+			if ($tile["location"] != "played") {
+				throw new BgaVisibleSystemException( "You can only play characters that were already played." );
+			}
+		} else {
+			if ($tile["location"] != "hand" || $tile["player_id"] != $player_id) {
+				throw new BgaVisibleSystemException( "You can only play tiles in your hand." );
+			}
 		}
 		
 		$ability = $tile["ability"];
 		$padability = str_pad($ability, 2, "0", STR_PAD_LEFT);
 		
-		Tile::discard($tile);
+		Tile::discardPlayedCharacter($tile);
 		self::notifyAllPlayers( "discardTile", clienttranslate('${player_name} plays a Character: ${image}'), array(
 			'player_id' => $player_id,
 			'player_name' => self::getActivePlayerName(),
@@ -523,6 +532,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			} else {
 				self::notifyAllPlayers("log", clienttranslate('There is no royal corruption token to discard'), []);
 			}
+		} else if ($ability == 12) {
+			$playedCharacters = Tile::getPlayedCharacters();
+			if (count($playedCharacters) > 0) {
+				$transition = "characterSpy";
+			} else {
+				self::notifyAllPlayers("log", clienttranslate('There is no previously played character'), []); // TODOTP
+			}
 		}
 				
 		// Play character!
@@ -576,6 +592,12 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				)
 			)
 		);
+	}
+
+	function argCharacterSpy() {
+		return [
+			'playedCharacters' => Tile::getPlayedCharacters(),
+		];
 	}
 	
 	function answer($answer) {
@@ -1533,11 +1555,10 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 	function makeImage($t, $inline = false) {
 		$inline_class = $inline ? "sprite-ib " : "";
 		if ($t['deck'] == 'character') {
-			if ($t['ability'] == 10) {
-				return '<div class="'.$inline_class.' sprite sprite-tile sprite-character-10"></div>';
-			} else {
-				return '<div class="'.$inline_class.' sprite sprite-tile sprite-character-0'.$t['ability'].'"></div>';
-			}
+			$padability = $t['ability'] == 0 ? '0' : str_pad($t['ability'], 2, "0", STR_PAD_LEFT);
+			return '<div class="'.$inline_class.' sprite sprite-tile sprite-character-'.$padability.'"></div>';
+		} else if ($t['deck'] == 'pharaoh') {
+			return '<div class="'.$inline_class.' sprite sprite-tile sprite-pharaoh-back"></div>';
 		} else if ($t['statue'] == 1) {
 			return '<div class="'.$inline_class.' sprite sprite-tile sprite-statue-'.$t['direction'].'"></div>';
 		} else {

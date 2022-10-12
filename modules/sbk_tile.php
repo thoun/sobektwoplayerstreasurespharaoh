@@ -173,6 +173,11 @@ class Tile
 		return $tile;
 	}
 	
+	public static function getPlayedCharacters() {
+		$deck = SobekTwoPlayersTreasuresPharaoh::getObjectList( "SELECT * FROM tile WHERE location = 'played' AND ability <> 12" );
+		return $deck;
+	}
+	
 	public static function giveToPlayer(&$tile, $player_id, $corruption = false) {
 		$location = $corruption ? 'corruption' : 'hand';
 		$tile['location'] = $location;
@@ -183,5 +188,10 @@ class Tile
 	public static function discard(&$tile) {
 		$tile['location'] = 'discard';
 		SobekTwoPlayersTreasuresPharaoh::DbQuery( "UPDATE tile SET location = 'discard' WHERE tile_id = $tile[tile_id]" );
+	}
+	
+	public static function discardPlayedCharacter(&$tile) {
+		$tile['location'] = 'discard';
+		SobekTwoPlayersTreasuresPharaoh::DbQuery( "UPDATE tile SET location = 'played' WHERE tile_id = $tile[tile_id]" );
 	}
 }

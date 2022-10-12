@@ -31,6 +31,7 @@ $machinestates = array(
 			"characterMerchant" => 104,
 			"characterThief" => 103,
 			"characterVizier" => 102,
+			"characterSpy" => 112,
 			"gameEnd" => 98,
 		)
 	),
@@ -205,6 +206,25 @@ $machinestates = array(
 		"action" => "stCharacterScribe",
 		"possibleactions" => array( "sell" ),
 		"transitions" => array( "next" => 2 )
+	),
+	112 => array(
+		"name" => "characterSpy",
+		"description" => clienttranslate('${actplayer} must choose a character to play'),
+		"descriptionmyturn" => clienttranslate('${you} must choose a character to play'),
+		"type" => "activeplayer",
+		"args" => "argCharacterSpy",
+		"possibleactions" => array( "playCharacter" ),
+		"transitions" => array( "next" => 10, "pickResource" => 5, "deben" => 3, "orientation" => 4, "refill" => 25,
+			"characterScribe" => 109,
+			"characterArchitect" => 108,
+			"characterCourtesan" => 107,
+			"characterHighPriest" => 105,
+			"characterMerchant" => 104,
+			"characterThief" => 103,
+			"characterVizier" => 102,
+			"characterSpy" => 112,
+			"gameEnd" => 98,
+		)
 	),
 	
 	98 => array(

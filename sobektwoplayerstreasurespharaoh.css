@@ -425,6 +425,11 @@ a .sprite-ankh {
   height: 50px;
 }
 
+.bgabutton .sprite.sprite-tile {
+  width: 50px;
+  height: 50px;
+}
+
 .gamestate_orientation #generalactions {
   white-space: nowrap;
 }
