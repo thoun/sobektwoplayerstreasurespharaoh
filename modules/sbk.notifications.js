@@ -229,6 +229,18 @@ function handleRevealDebens( notif ) {
 	}
 }
 
+function handleDiscardDeben( notif ) {
+	const playerId = notif.args.player_id;
+	const deben = notif.args.deben;
+
+	const sprites = Array.from(document.getElementById('deben-holder-p'+playerId).getElementsByClassName('sprite-deben'));
+	if (deben) {
+		sprites.find(div => div.classList.contains('sprite-deben-'+deben.value)).remove();
+	} else if (playerId != this.player_id) {
+		sprites[sprites.length - 1].remove();
+	}
+}
+
 function handleDeben( notif ) {
 	const playerId = notif.args.player_id;
 	const deben = notif.args.deben;
@@ -611,6 +623,7 @@ function setupNotifications( ) {
 	dojo.subscribe("drawTiles", handleDrawTiles.bind(this));
 	dojo.subscribe("deben", handleDeben.bind(this));
 	dojo.subscribe("revealDebens", handleRevealDebens.bind(this));
+	dojo.subscribe("discardDeben", handleDiscardDeben.bind(this));
 	dojo.subscribe("ankhDir", handleAnkhDir.bind(this));
 	dojo.subscribe("sold", handleSold.bind(this));
 	dojo.subscribe("updateScores", handleUpdateScores.bind(this));

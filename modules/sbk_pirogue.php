@@ -2,7 +2,7 @@
 
 class Pirogue
 {	
-	public static function setup() {
+	public static function setup($isExpansion) {
 		$tokens = [
 			3, 3, // take extra turn
 			7, 7, // add 2 scarabs
@@ -11,8 +11,16 @@ class Pirogue
 			6,    // 7 points
 			8, 8, // 2 points + take deben
 			9,    // look at 2 deben and take 1
-			4, 4  // force pick
+			4, 4, // force pick
 		];
+
+		if ($isExpansion) {
+			$tokens = array_merge($tokens, [
+				10, // discard deben
+				11, // add 2 scarabs
+			]);
+		}
+
 		shuffle($tokens);
 		
 		$sql = "INSERT INTO pirogue (`ability`, `location`, `slot`) VALUES ";

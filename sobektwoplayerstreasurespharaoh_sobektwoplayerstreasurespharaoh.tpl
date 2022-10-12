@@ -167,6 +167,8 @@
 		<div class="pa pa-finger">
 			<p class="sbk-to-localise" data-text="Place this token on a tile of your choice among the ones on the line indicated by the orientation of the Ankh pawn. Your opponent MUST use their action next turn to take that tile. They can neither choose any other action, nor any other tile, but they otherwise resolve this action normally and take any potential Corruption."></p>
 		</div>
+
+		// TODOTP
 	</div>
 </div>
 

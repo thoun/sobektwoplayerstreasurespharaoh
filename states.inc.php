@@ -92,7 +92,7 @@ $machinestates = array(
 		"action" => "stPirogue",
 		"args" => "argPirogue",
 		"possibleactions" => array( "pickPirogue" ),
-		"transitions" => array( "next" => 10, "extraTurn" => 2, "pirogue04" => 7, "pirogue07" => 8 )
+		"transitions" => array( "next" => 10, "extraTurn" => 2, "pirogue04" => 7, "pirogue07" => 8, "pirogue11" => 9 )
 	),
 	
 	7 => array(
@@ -113,6 +113,17 @@ $machinestates = array(
 		"type" => "activeplayer",
 		"action" => "stPirogue07",
 		"args" => "argPirogue07",
+		"possibleactions" => array( "answer" ),
+		"transitions" => array( "next" => 10 )
+	),
+	
+	9 => array(
+		"name" => "pirogue11",
+		"description" => clienttranslate('${actplayer} must choose a resource to add the Pirogue token to'),
+		"descriptionmyturn" => clienttranslate('${you} must choose a resource to add the Pirogue token to'),
+		"type" => "activeplayer",
+		"action" => "stPirogue11",
+		"args" => "argPirogue11",
 		"possibleactions" => array( "answer" ),
 		"transitions" => array( "next" => 10 )
 	),
@@ -178,7 +189,7 @@ $machinestates = array(
 		"type" => "activeplayer",
 		"args" => "argCharacterArchitect",
 		"possibleactions" => array( "pickPirogue" ),
-		"transitions" => array( "next" => 10, "extraTurn" => 2, "pirogue04" => 7, "pirogue07" => 8 )
+		"transitions" => array( "next" => 10, "extraTurn" => 2, "pirogue04" => 7, "pirogue07" => 8, "pirogue11" => 9 )
 	),
 	109 => array(
 		"name" => "preCharacterScribe",

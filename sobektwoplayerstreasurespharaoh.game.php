@@ -4,6 +4,7 @@ require_once( APP_GAMEMODULE_PATH.'module/table/table.game.php' );
 require_once('modules/sbk_tile.php');
 require_once('modules/sbk_deben.php');
 require_once('modules/sbk_pirogue.php');
+require_once('modules/sbk_royal_corruption.php');
 
 class SobekTwoPlayersTreasuresPharaoh extends Table
 {
@@ -28,6 +29,8 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			'game_ended' => 19,
 			
 			'tiles_taken' => 20,
+
+			'treasures_of_the_pharaoh_expansion' => 100,
 		) );
 	}
 	
@@ -43,11 +46,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		// The number of colors defined here must correspond to the maximum number of players allowed for the gams
 		$gameinfos = self::getGameinfos();
 		$default_colors = $gameinfos['player_colors'];
+
+		$isTreasuresOfThePharaohExpansion = $this->isTreasuresOfThePharaohExpansion();
 		
 		// Initialise tiles deck
 		Tile::setup();
 		Deben::setup();
-		Pirogue::setup();
+		Pirogue::setup($isTreasuresOfThePharaohExpansion);
 		
 		// Is this many queries slow??
 		
@@ -93,7 +98,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			$color = array_shift( $default_colors );
 			$values[] = "('".$player_id."','$color','".$player['player_canal']."','".addslashes( $player['player_name'] )."','".addslashes( $player['player_avatar'] )."')";
 		}
-		$sql .= implode( $values, ',' );
+		$sql .= implode(',', $values);
 		self::DbQuery( $sql );
 		self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
 		self::reloadPlayersBasicInfos();
@@ -124,6 +129,15 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		clienttranslate( "The Character tiles" );
 		clienttranslate( "The Pirogue tokens" );
 		clienttranslate( "High Priest(ess)" );
+
+		// TODO TEMP
+		$deben = Deben::draw(2343492);
+		$deben = Deben::draw(2343492);
+		$deben = Deben::draw(2343492);
+		$deben = Deben::draw(2343493);
+		$deben = Deben::draw(2343493);
+		$deben = Deben::draw(2343493);
+		$deben = Deben::draw(2343493);
 
 		// Activate first player (which is in general a good idea :) )
 		$this->activeNextPlayer();
@@ -201,6 +215,10 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 
 		return $result;
 	}
+
+    function isTreasuresOfThePharaohExpansion() {
+        return intval($this->getGameStateValue('treasures_of_the_pharaoh_expansion')) === 2;
+    }
 	
 	function getPlayerResourceScore($player_id) {
 		$sold = Tile::getSold($player_id);
@@ -658,6 +676,46 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				// Urm...
 				throw new BgaVisibleSystemException( "Invalid answer." );
 			}
+		} else if ($state['name'] == "pirogue11")
+		{
+			if ($answer == "marble" || $answer == "ebony") {
+				$sold = Tile::getSold($player_id);
+				$found = false;
+				foreach ($sold as $t) {
+					if ($t['resource'] == $answer) {
+						$found = true;
+						break;
+					}
+				}
+				if (! $found) {
+					throw new BgaUserException( self::_("You have no sold sets of that type") );
+				} else {
+					// Move the pirogue there, and update score
+					$pirogue = Pirogue::get( self::getGameStateValue( 'just_picked_pirogue' ) );
+					self::DbQuery("UPDATE pirogue SET location='soldset', resource='$answer', player_id=$player_id WHERE pirogue_id=$pirogue[pirogue_id]");
+					$pirogue['location'] = 'soldset';
+					$pirogue['resource'] = $answer;
+					$pirogue['player_id'] = $player_id;
+					self::notifyAllPlayers( "takePirogue", '', array(
+						'pirogue' => $pirogue,
+						'discard' => true,
+						'soldset' => true,
+					));
+					
+					// Update player score...
+					$score = self::getPlayerResourceScore($player_id);
+					self::dbSetScore($player_id, $score['score']);
+					self::notifyAllPlayers( "updateScores", '', array(
+						'player_id' => $player_id,
+						'resource_score' => $score
+					));
+					
+					$this->gamestate->nextState( 'next' );
+				}
+			} else {
+				// Urm...
+				throw new BgaVisibleSystemException( "Invalid answer." );
+			}
 		} else if ($state['name'] == "characterHighPriest")
 		{
 			if ($answer == "statue" || $answer == "wheat" || $answer == "ebony" || $answer == "ivory" || $answer == "marble" || $answer == "fish" || $answer == "livestock") {
@@ -778,8 +836,11 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		// Does this slot exist?
 		// Apply automatically, or go to appropriate state?
 		
-		// You have seen the pirogues
-		self::DbQuery( "UPDATE `player` SET `player_seen_pirogues` = 1 WHERE player_id = $player_id");
+		$state = $this->gamestate->state();
+		if ($state['name'] != 'characterArchitect') {
+			// You have seen the pirogues
+			self::DbQuery( "UPDATE `player` SET `player_seen_pirogues` = 1 WHERE player_id = $player_id");
+		}
 		
 		$pirogue = Pirogue::get($slot);
 		if (! isset($pirogue)) {
@@ -787,7 +848,6 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		}
 		
 		// Depending on mode, must be in a slot
-		$state = $this->gamestate->state();
 		if ($state['name'] == 'pirogue') {
 			if ($pirogue["location"] != 'slot') {
 				throw new BgaVisibleSystemException( "That Pirogue is not in a slot." );
@@ -894,6 +954,31 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 					'player_name' => self::getActivePlayerName()
 				));
 			}
+		} else if ($ability == 10) {
+			$discard = true;
+			$opponentId = self::getPlayerAfter($player_id);
+			$opponentDebens = Deben::getOwned($opponentId);
+
+			if (count($opponentDebens) > 0) {
+				$discardedDeben = $opponentDebens[bga_rand(0, count($opponentDebens)-1)];
+				self::DbQuery("UPDATE `deben` SET `location`='discard' WHERE `deben_id` = $discardedDeben[deben_id]");
+
+				self::notifyPlayer( $opponentId, "discardDeben", '', array(
+					'player_id' => $opponentId,
+					'deben' => $discardedDeben,
+				));
+				
+				self::notifyAllPlayers( "discardDeben", '', array(
+					'player_id' => $opponentId,
+				));
+			} else {
+				self::notifyAllPlayers("log", clienttranslate('There is no deben to discard'), []);
+			}
+		} else if ($ability == 11) {
+			// Counts as 2 scarabs for wheat/fish/livestock (sold set)
+			$message = clienttranslate('${player_name} takes a Pirogue token: ${image}');
+			self::setGameStateValue( 'just_picked_pirogue', $pirogue["pirogue_id"] );
+			$transition = "pirogue11";
 		} else {
 			throw new BgaVisibleSystemException( "Unrecognised Pirogue ability." );
 		}
@@ -1285,6 +1370,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			$resource_points[$pid] = self::getPlayerResourceScore($pid);
 			// Add on pirogues...
 			$pirogues = Pirogue::getOwned($pid);
+
+			// Add royal corruption
+			$royalCorruptions = RoyalCorruption::getOwned($pid);
+			foreach ($royalCorruptions as $royalCorruption) {
+				$amount_corruption[$pid] += intval($royalCorruption['value']);
+			}
+
 			foreach ($pirogues as $pirogue) {
 				if ($pirogue['ability'] == 1) {
 					$amount_corruption[$pid] += 1;
@@ -1427,6 +1519,30 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		$found = false;
 		foreach ($sold as $t) {
 			if ($t['resource'] == 'fish' || $t['resource'] == 'livestock' || $t['resource'] == 'wheat') {
+				$found = true;
+				break;
+			}
+		}
+		if (! $found) {
+			// Discard the token! There is nowhere to put it
+			$pirogue = Pirogue::get( self::getGameStateValue( 'just_picked_pirogue' ) );
+			self::DbQuery("UPDATE pirogue SET location='discard' WHERE pirogue_id=$pirogue[pirogue_id]");
+			$pirogue['location'] = 'discard';
+			self::notifyAllPlayers( "takePirogue", clienttranslate('There is nowhere to put the Pirogue token, so it gets discarded'), array(
+				'pirogue' => $pirogue,
+				'discard' => true
+			));
+			$this->gamestate->nextState( 'next' );
+		}
+	}
+	
+	function stPirogue11() {
+		// If you have no relevant sold sets, next!
+		$player_id = self::getActivePlayerId();
+		$sold = Tile::getSold($player_id);
+		$found = false;
+		foreach ($sold as $t) {
+			if ($t['resource'] == 'marble' || $t['resource'] == 'ebony') {
 				$found = true;
 				break;
 			}
@@ -1675,6 +1791,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 	}
 	
 	function argPirogue07() {
+		$pirogue = Pirogue::get( self::getGameStateValue( 'just_picked_pirogue' ) );
+		return array(
+			"pirogue" => $pirogue
+		);
+	}
+	
+	function argPirogue11() {
 		$pirogue = Pirogue::get( self::getGameStateValue( 'just_picked_pirogue' ) );
 		return array(
 			"pirogue" => $pirogue

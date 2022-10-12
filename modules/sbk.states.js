@@ -74,6 +74,7 @@ function onEnteringState( stateName, args ) {
 			}
 			break;
 		case 'pirogue07':
+		case 'pirogue11':
 			// Face up pirogue...
 			const p = args.args.pirogue;
 			const q = dojo.query('.pirogue-slot-' + p.slot, $('pirogue-holder'));
@@ -245,6 +246,13 @@ function onUpdateActionButtons( stateName, args ) {
 					this.addActionButton( 'fish_button', _('Fish'), 'onAnswer' );
 				if (dojo.query('.sold-set[data-resource="livestock"]', soldSetsHolder).length > 0)
 					this.addActionButton( 'livestock_button', _('Livestock'), 'onAnswer' );
+				break;
+			case 'pirogue11':
+				const soldSetsHolder11 = $('sbk-sets-p' + this.player_id);
+				if (dojo.query('.sold-set[data-resource="marble"]', soldSetsHolder11).length > 0)
+					this.addActionButton( 'marble_button', _('Marble'), 'onAnswer' );
+				if (dojo.query('.sold-set[data-resource="ebony"]', soldSetsHolder11).length > 0)
+					this.addActionButton( 'ebony_button', _('Ebony'), 'onAnswer' );
 				break;
 			case 'characterHighPriest':
 				const resources = ['wheat', 'fish', 'livestock', 'marble', 'ebony', 'ivory'];

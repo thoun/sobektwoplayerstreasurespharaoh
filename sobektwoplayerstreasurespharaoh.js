@@ -93,6 +93,8 @@ function (dojo, declare, debounce, gamegui, setup, states, notifications, action
             } else if (tile.ability == 9) {
                desc = _("Draw 2 Deben tokens and keep the higher one. Put the other back into the bag without revealing its value.");
             }
+
+            // TODOTP
             html = `${desc}`;
             this.addTooltipHtml( element.id, html );
          }
