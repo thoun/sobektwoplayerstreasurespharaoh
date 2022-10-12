@@ -202,6 +202,8 @@ var jstpl_player_board = `<div id="cp_board_p\${id}" class="cp_board" data-playe
 <div class="hand-backs-holder" id="hand-backs-holder-p\${id}"></div>
 <div class="deben-holder" id="deben-holder-p\${id}">
 </div>
+<div class="royal-corruption-holder" id="royal-corruption-holder-p\${id}">
+</div>
 <div class="pirogue-holder" id="pirogue-holder-p\${id}">
 </div>
 </div>`;

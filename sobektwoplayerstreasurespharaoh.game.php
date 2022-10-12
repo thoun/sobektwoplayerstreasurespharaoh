@@ -50,13 +50,16 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		$isTreasuresOfThePharaohExpansion = $this->isTreasuresOfThePharaohExpansion();
 		
 		// Initialise tiles deck
-		Tile::setup();
+		Tile::setup($isTreasuresOfThePharaohExpansion);
 		Deben::setup();
 		Pirogue::setup($isTreasuresOfThePharaohExpansion);
+		if ($isTreasuresOfThePharaohExpansion) {
+			RoyalCorruption::setup();
+		}
 		
 		// Is this many queries slow??
 		
-		$starting_tiles = Tile::getDeck('starting');
+		$starting_tiles = Tile::getDeck(true);
 		// - 4 starting tiles for centre of board
 		for ($col = 2; $col <= 3; $col++) {
 			for ($row = 2; $row <= 3; $row++) {
@@ -131,21 +134,19 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		clienttranslate( "High Priest(ess)" );
 
 		// TODO TEMP
-		$deben = Deben::draw(2343492);
-		$deben = Deben::draw(2343492);
-		$deben = Deben::draw(2343492);
-		$deben = Deben::draw(2343493);
-		$deben = Deben::draw(2343493);
-		$deben = Deben::draw(2343493);
-		$deben = Deben::draw(2343493);
+		//RoyalCorruption::draw(2343492);
+		//RoyalCorruption::draw(2343493);
+		//RoyalCorruption::draw(2343493);
+		// UPDATE `tile` SET `location` = 'discard' where location in ('board', 'deck')
 
 		// Activate first player (which is in general a good idea :) )
 		$this->activeNextPlayer();
 	}
 		
-	protected function getAllDatas()
-	{
-		$result = array();
+	protected function getAllDatas() {
+		$isTreasuresOfThePharaohExpansion = $this->isTreasuresOfThePharaohExpansion();
+
+		$result = [];
 
 		$sql = "SELECT player_id id, player_score score, player_name name, player_seen_pirogues FROM player ";
 		$players = self::getCollectionFromDb( $sql );
@@ -178,6 +179,13 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				$players[$player_id]['debens'] = $debens;
 			}
 			$players[$player_id]['deben_count'] = count($debens);
+			
+			
+			$royalCorruptions = RoyalCorruption::getOwned( $player_id );
+			if ($player_id == self::getCurrentPlayerId() || $game_ended) {
+				$players[$player_id]['royalCorruptions'] = $royalCorruptions;
+			}
+			$players[$player_id]['royalCorruption_count'] = count($royalCorruptions);
 			
 			$players[$player_id]['sold'] = Tile::getSold($player_id);
 			
@@ -212,6 +220,8 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			'row' => self::getGameStateValue( 'ankh_row' ),
 			'dir' => self::getAnkhDir()
 		);
+
+		$result['treasuresOfThePharaohExpansion'] = $isTreasuresOfThePharaohExpansion;
 
 		return $result;
 	}
@@ -284,9 +294,10 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 	
 	function redactCharacters( &$tiles ) {
 		foreach ($tiles as $key => $tile) {
-			if ($tile['deck'] == 'character') {
+			if ($tile['deck'] == 'character' || $tile['deck'] == 'pharaoh') {
 				$tiles[$key]['ability'] = null;
 				$tiles[$key]['resource'] = null;
+				$tiles[$key]['displayed_resource'] = null;
 				$tiles[$key]['statue'] = 0;
 			}
 		}
@@ -322,7 +333,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			}
 		}
 		
-		$resource = null;
+		$resources = null;
 		$tiles = array();
 		foreach ($tile_ids as $tile_id) {
 			$tile = Tile::get($tile_id);
@@ -333,18 +344,21 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			if ($state['name'] != 'characterScribe') {
 				if ($tile['statue'] == 1) {
 					//
-				} else if ($resource == null) {
-					$resource = $tile["resource"];
+				} else if ($resources == null) {
+					$resources = explode('-or-', $tile["resource"]);
 				} else {
-					if ($resource != $tile["resource"]) {
+					$otherResources = explode('-or-', $tile["resource"]);
+					$resources = array_values(array_filter($resources, fn($resource) => in_array($resource, $otherResources) ));
+
+					if (count($resources) == 0) {
 						throw new BgaUserException( self::_("You must sell tiles of the same resource.") );
 					}
 				}
 			}
-		}
+		}	
 		
 		if ($state['name'] == 'characterScribe') {
-			self::DbQuery('UPDATE tile SET location = \'corruption\' WHERE tile_id IN ('.join($tile_ids, ',').')');
+			self::DbQuery('UPDATE tile SET location = \'corruption\' WHERE tile_id IN ('.join(',', $tile_ids).')');
 			self::notifyHandChange($player_id);
 			self::notifyAllPlayers( "discardTile", clienttranslate('${player_name} discards ${num} tiles'), array(
 				'player_id' => $player_id,
@@ -356,30 +370,36 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			
 			$this->gamestate->nextState( "next" );
 		} else {
-			if ($resource == null || $state['name'] == 'characterCourtesan') {
+			if ($resources == null || $state['name'] == 'characterCourtesan') {
 				// Need to add onto another set...
 				$sold = Tile::getSold($player_id);
-				if ($resource == null) {
+				if ($resources == null) {
 					// Only statues - any sold set is fine
 					if (count($sold) == 0) {
 						throw new BgaUserException( self::_("You cannot sell only statues if there are no sold sets to add onto") );
 					}
 				} else {
 					// Courtesan - need a matching sold set
-					$found = false;
+					$found = [];
 					foreach ($sold as $s) {
-						if ($s["resource"] == $resource) {
-							$found = true;
+						if (in_array($s["resource"], $resources)) {
+							$found[] = $s["resource"];
 							break;
 						}
 					}
-					if (! $found) {
+					if (count($found) == 0) {
 						throw new BgaUserException( self::_("You must add onto an existing sold set") );
+					} else if (count($found) > 1) {
+						throw new BgaUserException( self::_("No clearly defined resource") );// TODOTP
 					}
 				}
+			} else {
+				if (count($resources) > 1) {
+					throw new BgaUserException( self::_("No clearly defined resource") );// TODOTP
+				}	
 			}
 			
-			self::DbQuery('UPDATE tile SET just_sold = 1 WHERE tile_id IN ('.join($tile_ids, ',').')');
+			self::DbQuery('UPDATE tile SET just_sold = 1 WHERE tile_id IN ('.join(',', $tile_ids).')');
 			
 			$this->gamestate->nextState( "pickResource" );
 		}
@@ -630,6 +650,8 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 					'player_id' => $player_id,
 					'resource_score' => $score
 				));
+
+				// TODOTP take royal corruption
 				
 				$this->gamestate->nextState( "next" );
 			} else {
@@ -1838,6 +1860,14 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				}
 				if (+$t["statue"]) {
 					$num_statues++;
+				} if ($t["deck"] == "pharaoh") {
+					$resources = explode('-or-', $t["resource"]);
+					foreach($resources as $r) {
+						if (! isset($num_per_resource[$r])) {
+							$num_per_resource[$r] = 0;
+						}
+						$num_per_resource[$r]++;
+					}
 				} else {
 					$r = $t["resource"];
 					if (! isset($num_per_resource[$r])) {

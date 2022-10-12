@@ -1,8 +1,9 @@
 -- Tiles
 CREATE TABLE IF NOT EXISTS `tile` (
 	`tile_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`resource` enum('ivory', 'ebony', 'marble', 'wheat', 'fish', 'livestock'),
-	`deck` enum('starting', 'good', 'character') NOT NULL,
+	`resource` enum('ivory', 'ebony', 'marble', 'wheat', 'fish', 'livestock', 'fish-or-ebony', 'ebony-or-livestock', 'livestock-or-ivory', 'ivory-or-wheat', 'wheat-or-marble', 'marble-or-fish'),
+	`displayed_resource` enum('ivory', 'ebony', 'marble', 'wheat', 'fish', 'livestock', 'fish-or-ebony', 'ebony-or-livestock', 'livestock-or-ivory', 'ivory-or-wheat', 'wheat-or-marble', 'marble-or-fish'),
+	`deck` enum('starting', 'good', 'character', 'pharaoh') NOT NULL,
 	`statue` tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	`direction` char(1),
 	`scarabs` tinyint(1) unsigned DEFAULT '0' NOT NULL,

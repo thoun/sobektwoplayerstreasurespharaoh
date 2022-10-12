@@ -2,8 +2,8 @@
 
 class Tile
 {
-	public static function setup() {
-		$sql = "INSERT INTO tile (resource, deck, `statue`, direction, scarabs, deben, ability, location) VALUES ";
+	public static function setup($isExpansion) {
+		$sql = "INSERT INTO tile (resource, displayed_resource, deck, `statue`, direction, scarabs, deben, ability, location) VALUES ";
 		
 		// Starting
 		$starting = [
@@ -19,7 +19,7 @@ class Tile
 			[ 'fish', 'h', 0, 0 ],
 		];
 		foreach ($starting as $g) {
-			$sql .= "('$g[0]', 'starting', 0, '$g[1]', $g[2], $g[3], NULL, 'deck'), ";
+			$sql .= "('$g[0]', '$g[0]', 'starting', 0, '$g[1]', $g[2], $g[3], NULL, 'deck'), ";
 		}
 		
 		// Goods
@@ -77,7 +77,7 @@ class Tile
 			[ 'ivory', 'v', 3, 0 ],
 		];
 		foreach ($goods as $g) {
-			$sql .= "('$g[0]', 'good', 0, '$g[1]', $g[2], $g[3], NULL, 'deck'), ";
+			$sql .= "('$g[0]', '$g[0]', 'good', 0, '$g[1]', $g[2], $g[3], NULL, 'deck'), ";
 		}
 		
 		// Statues
@@ -89,9 +89,19 @@ class Tile
 			[ 'b' ],
 		];
 		foreach ($statues as $g) {
-			$sql .= "(NULL, 'good', 1, '$g[0]', 0, 0, NULL, 'deck'), ";
+			$sql .= "(NULL, NULL, 'good', 1, '$g[0]', 0, 0, NULL, 'deck'), ";
 		}
-		
+
+		// Pharaoh
+		if ($isExpansion) {
+			$pharaohs = [
+				'fish-or-ebony', 'ebony-or-livestock', 'livestock-or-ivory', 'ivory-or-wheat', 'wheat-or-marble', 'marble-or-fish',
+			];
+			foreach ($pharaohs as $g) {
+				$sql .= "('$g', '$g', 'pharaoh', 0, NULL, 2, 0, NULL, 'deck'), ";
+			}
+		}
+
 		// Characters
 		$characters = [
 			[ 'ivory', '1' ],
@@ -104,26 +114,28 @@ class Tile
 			[ 'livestock', '9' ],
 			[ 'fish', '10' ],
 		];
+		if ($isExpansion) {
+			$characters[] = [ 'ivory', '11' ];
+		}
 		shuffle($characters);
 		
 		foreach ($characters as $g) {
-			$sql .= "('$g[0]', 'character', 0, NULL, 0, 0, $g[1], 'deck'), ";
+			$sql .= "('$g[0]', '$g[0]', 'character', 0, NULL, 0, 0, $g[1], 'deck'), ";
 		}
 		
 		// TODO : Should shuffle this one in too...
 		// Statue character
-		$sql .= "(NULL, 'character', 1, NULL, 0, 0, 8, 'deck')";
+		if ($isExpansion) {
+			$sql .= "(NULL, NULL, 'character', 1, NULL, 0, 0, 12, 'deck'), ";
+		}
+		$sql .= "(NULL, NULL, 'character', 1, NULL, 0, 0, 8, 'deck')";
 		
 		SobekTwoPlayersTreasuresPharaoh::DbQuery( $sql );
 	}
 	
-	public static function getDeck($deckName = null) {
-		if (! isset($deckName)) {
-			$decks = "'good', 'character'";
-		} else {
-			$decks = "'$deckName'";
-		}
-		$deck = SobekTwoPlayersTreasuresPharaoh::getObjectList( "SELECT * FROM tile WHERE deck IN ($decks) AND location = 'deck'" );
+	public static function getDeck(bool $starting = false) {
+		$deskSign = $starting ? '=' : '<>';
+		$deck = SobekTwoPlayersTreasuresPharaoh::getObjectList( "SELECT * FROM tile WHERE deck $deskSign 'starting' AND location = 'deck'" );
 		shuffle($deck);
 		return $deck;
 	}

@@ -46,16 +46,18 @@ function (dojo, declare, debounce, gamegui, setup, states, notifications, action
          let spriteName = '';
          if (tile.deck == 'character') {
             if (tile.ability != null) {
-               if (tile.ability == 10) {
-                  spriteName = 'sprite-character-10';
-               } else {
-                  spriteName = 'sprite-character-0' + +tile.ability;
-               }
+               spriteName = 'sprite-character-' + tile.ability.toString().padStart(2, '0');
             } else {
                spriteName = 'sprite-character-back';
             }
          } else if (+tile.statue) {
             spriteName = 'sprite-statue-' + tile.direction;
+         } else if (tile.deck == 'pharaoh') {
+            if (tile.displayed_resource != null) {
+               spriteName = `sprite-pharaoh sprite-${tile.displayed_resource}`;
+            } else {
+               spriteName = `sprite-pharaoh-back`;
+            }
          } else {
             spriteName = `sprite-${tile.resource}-${tile.direction}-${tile.scarabs > 0 ? 's' : 'x'}-${tile.deben > 0 ? 'd' : 'x'}`;
          }

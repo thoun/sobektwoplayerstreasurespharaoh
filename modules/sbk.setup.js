@@ -66,6 +66,11 @@ function onResize(animate = true) {
 
 function setup ( gamedatas ) {
 	console.log( "Starting game setup", gamedatas );
+
+	if (!gamedatas.treasuresOfThePharaohExpansion) {
+		this.dontPreloadImage(`royal-corruption.png`);
+		this.dontPreloadImage(`tiles-treasures-of-the-pharaoh.jpg`);
+	}
 	
 	const numPlayers = Object.keys(gameui.gamedatas.players).length;
 	
@@ -106,6 +111,18 @@ function setup ( gamedatas ) {
 		} else {
 			for (let i = 0; i < po.deben_count; i++) {
 				dojo.place( '<div class="sprite sprite-deben sprite-deben-back"></div> ', $('deben-holder-p'+playerId) );
+			}
+		}
+	
+		if (po.royalCorruptions != null) {
+			for (let i in po.royalCorruptions) {
+				const royalCorruption = po.royalCorruptions[i];
+				
+				dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-'+royalCorruption.value+'"></div> ', $('royal-corruption-holder-p'+playerId) );
+			}
+		} else {
+			for (let i = 0; i < po.royalCorruption_count; i++) {
+				dojo.place( '<div class="sprite sprite-royal-corruption sprite-royal-corruption-back"></div> ', $('royal-corruption-holder-p'+playerId) );
 			}
 		}
 		

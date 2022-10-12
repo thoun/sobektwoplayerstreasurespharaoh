@@ -60,7 +60,7 @@
 .browser-apple .sprite-tile {
   filter: none !important;
 }
-.sprite-tile.sprite-character-back, .sprite-tile.sprite-character-0 {
+.sprite-tile.sprite-character-back, .sprite-tile.sprite-character-0, .sprite-tile.sprite-character-00 {
   background-position: 75% 28.5714285714%;
 }
 .sprite-tile.sprite-good-back {
@@ -256,6 +256,37 @@
   background-position: 25% 100%;
 }
 
+.sprite-tile.sprite-pharaoh, .sprite-tile.sprite-pharaoh-back, .sprite-character-11, .sprite-character-12 {
+  background-image: url(img/tiles-treasures-of-the-pharaoh.jpg);
+  background-size: 900% 100%;
+  background-position: 100% 50%;
+}
+
+.sprite-tile.sprite-pharaoh.sprite-fish-or-ebony {
+  background-position: 0% 50%;
+} 
+.sprite-tile.sprite-pharaoh.sprite-ebony-or-livestock {
+  background-position: 12.5% 50%;
+} 
+.sprite-tile.sprite-pharaoh.sprite-livestock-or-ivory {
+  background-position: 25% 50%;
+} 
+.sprite-tile.sprite-pharaoh.sprite-ivory-or-wheat {
+  background-position: 37.5% 50%;
+} 
+.sprite-tile.sprite-pharaoh.sprite-wheat-or-marble {
+  background-position: 50% 50%;
+} 
+.sprite-tile.sprite-pharaoh.sprite-marble-or-fish {
+  background-position: 62.5% 50%;
+} 
+.sprite-tile.sprite-character-11 {
+  background-position: 75% 50%;
+}
+.sprite-tile.sprite-character-12 {
+  background-position: 87.5% 50%;
+}
+
 .sprite.sprite-tile.corruption-tile {
   background-image: url(img/corruption.png);
   background-size: contain;
@@ -291,6 +322,33 @@
 }
 .sprite-deben.sprite-deben-9 {
   background-position: 85.7% 0;
+}
+
+.sprite-royal-corruption {
+  background-image: url(img/royal-corruption.png);
+  background-size: 700% 100%;
+  background-position: 0 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-back {
+  background-position: 100% 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-1 {
+  background-position: 0 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-2 {
+  background-position: 16.66% 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-3 {
+  background-position: 33.33% 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-4 {
+  background-position: 50% 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-5 {
+  background-position: 66.66% 0;
+}
+.sprite-royal-corruption.sprite-royal-corruption-6 {
+  background-position: 83.33% 0;
 }
 
 .sprite-ankh {
@@ -481,6 +539,14 @@ a .sprite-ankh {
   height: 25px !important;
   width: 25px !important;
 }
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-tile, #sbk-game-holder #sbk-game-scoring table .sprite.sprite-royal-corruption {
+  height: 50px !important;
+  width: 50px !important;
+}
+#sbk-game-holder #sbk-game-scoring table .sprite.sprite-tile.small-tile, #sbk-game-holder #sbk-game-scoring table .sprite.sprite-royal-corruption.small-tile {
+  height: 25px !important;
+  width: 25px !important;
+}
 #sbk-game-holder #sbk-game-scoring table .sprite.sprite-pirogue {
   height: 50px !important;
   width: 57.66px !important;
@@ -660,6 +726,12 @@ a .sprite-ankh {
   margin-right: 5px;
 }
 .cp_board .sprite-deben {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+}
+.cp_board .sprite-royal-corruption {
   display: inline-block;
   width: 50px;
   height: 50px;
