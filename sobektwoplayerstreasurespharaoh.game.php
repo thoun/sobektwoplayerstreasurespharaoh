@@ -1224,8 +1224,8 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				// - if deben, deben choice
 				self::setGameStateValue( 'last_tile_taken', $tile['tile_id'] );
 				$this->gamestate->nextState( "deben" );
-			} else if ($tile["deck"] == 'character' && $state['name'] != 'characterMerchant') {
-				// - if character, direction choice
+			} else if (($tile["deck"] == 'character' || $tile["deck"] == 'pharaoh') && $state['name'] != 'characterMerchant') {
+				// - if character or pharaoh, direction choice
 				$this->gamestate->nextState( "orientation" );
 			} else {
 				// - otherwise, next player

@@ -75,12 +75,13 @@ function handleTakeTile( notif ) {
 					if (playerId == this.player_id) {
 						tileElement.tile.location = 'corruption';
 						// Add character info
-						if (tileElement.tile.deck == 'character' && corruptionTilesObjects) {
+						if (['character', 'pharaoh'].includes(tileElement.tile.deck) && corruptionTilesObjects) {
 							for (let j in corruptionTilesObjects) {
 								let ct = corruptionTilesObjects[j];
 								if (ct.tile_id == tileElement.tile.tile_id) {
 									tileElement.tile.ability = ct.ability;
 									tileElement.tile.resource = ct.resource;
+									tileElement.tile.displayed_resource = ct.displayed_resource;
 									tileElement.tile.statue = ct.statue;
 								}
 							}
