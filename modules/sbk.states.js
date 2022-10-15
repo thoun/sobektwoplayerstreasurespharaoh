@@ -254,20 +254,22 @@ function onUpdateActionButtons( stateName, args ) {
 				if (dojo.query('.sold-set[data-resource="ebony"]', soldSetsHolder11).length > 0)
 					this.addActionButton( 'ebony_button', _('Ebony'), 'onAnswer' );
 				break;
-			case 'characterHighPriest': // TODOTP : can this character remove pharao tiles ?
+			case 'characterHighPriest':
 				const resources = ['wheat', 'fish', 'livestock', 'marble', 'ebony', 'ivory'];
 				const counts = { wheat: 0, fish: 0, livestock: 0, marble: 0, ebony: 0, ivory: 0, statue: 0 };
 				const q = dojo.query('.sprite-tile', $('sbk-my-corruption'));
 				for (let i = 0; i < q.length; i++) {
 					const tile = q[i].tile;
-					let key = tile.resource;
+					let keys = typeof tile.resource == 'string' ? tile.resource.split('-or-') : [];
 					if (+tile.statue) {
-						key = "statue";
+						keys = ["statue"];
 					}
-					if (! counts[key]) {
-						counts[key] = 0;
-					}
-					counts[key]++;
+					keys.forEach(key => {
+						if (! counts[key]) {
+							counts[key] = 0;
+						}
+						counts[key]++;
+					});
 				}
 				this.addActionButton( 'statue_button', _('Statues') + ' ('+counts['statue']+')', 'onAnswer' );
 				for (let i in resources) {

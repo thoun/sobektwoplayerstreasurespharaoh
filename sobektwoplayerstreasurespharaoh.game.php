@@ -787,7 +787,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 				if ($answer == "statue") {
 					$to_remove = self::getObjectList("SELECT * FROM tile WHERE location = 'corruption' AND player_id = $player_id AND statue");
 				} else {
-					$to_remove = self::getObjectList("SELECT * FROM tile WHERE location = 'corruption' AND player_id = $player_id AND resource = '$answer'");
+					$to_remove = self::getObjectList("SELECT * FROM tile WHERE location = 'corruption' AND player_id = $player_id AND resource like '%$answer%'");
 				}
 				
 				$to_remove_ids = [];
