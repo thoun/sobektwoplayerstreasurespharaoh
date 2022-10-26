@@ -390,12 +390,12 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 					if (count($found) == 0) {
 						throw new BgaUserException( self::_("You must add onto an existing sold set") );
 					} else if (count($found) > 1) {
-						throw new BgaUserException( self::_("No clearly defined resource") );// TODOTP
+						throw new BgaUserException( self::_("No clearly defined type") );
 					}
 				}
 			} else {
 				if (count($resources) > 1) {
-					throw new BgaUserException( self::_("No clearly defined resource") );// TODOTP
+					throw new BgaUserException( self::_("No clearly defined type") );
 				}	
 			}
 			
@@ -537,7 +537,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			if (count($playedCharacters) > 0) {
 				$transition = "characterSpy";
 			} else {
-				self::notifyAllPlayers("log", clienttranslate('There is no previously played character'), []); // TODOTP
+				self::notifyAllPlayers("log", clienttranslate('There is no previously played character'), []);
 			}
 		}
 				

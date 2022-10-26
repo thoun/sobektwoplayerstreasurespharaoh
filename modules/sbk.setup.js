@@ -339,10 +339,10 @@ function setup ( gamedatas ) {
 		dojo.style($('sbk-modal'), {
 			display: 'block'
 		});
-		dojo.style($('player-aid-character'), {
-			display: 'block'
+		dojo.style($('player-aid-character-wrapper'), {
+			display: 'flex'
 		});
-		dojo.style($('player-aid-pirogue'), {
+		dojo.style($('player-aid-pirogue-wrapper'), {
 			display: 'none'
 		});
 	});
@@ -350,11 +350,11 @@ function setup ( gamedatas ) {
 		dojo.style($('sbk-modal'), {
 			display: 'block'
 		});
-		dojo.style($('player-aid-character'), {
+		dojo.style($('player-aid-character-wrapper'), {
 			display: 'none'
 		});
-		dojo.style($('player-aid-pirogue'), {
-			display: 'block'
+		dojo.style($('player-aid-pirogue-wrapper'), {
+			display: 'flex'
 		});
 	});
 	
@@ -363,6 +363,15 @@ function setup ( gamedatas ) {
 		const e = toTranslate[i];
 		const english = dojo.attr(e, 'data-text');
 		e.innerHTML = _(english).replace('${num}', '');
+	}
+
+	if (gamedatas.treasuresOfThePharaohExpansion) {
+		dojo.style($('player-aid-character-pharaoh'), {
+			display: 'block'
+		});
+		dojo.style($('player-aid-pirogue-pharaoh'), {
+			display: 'block'
+		});
 	}
 	
 	this.setupNotifications();

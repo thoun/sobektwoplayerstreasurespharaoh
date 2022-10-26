@@ -762,14 +762,21 @@ a .sprite-ankh {
   display: none;
   background-color: rgba(0, 0, 0, 0.9);
 }
-#sbk-modal #player-aid-pirogue {
-  background-image: url(img/aid_pirogue.jpg);
-  width: 724px;
-  height: 713px;
+#sbk-modal #player-aid-pirogue-wrapper {
   margin: auto;
   margin-top: calc(50vh - 713px/2);
   position: relative;
   font-size: 0.9em;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#sbk-modal #player-aid-pirogue {
+  background-image: url(img/aid_pirogue.jpg);
+  width: 724px;
+  height: 713px;
+  position: relative;
   border-radius: 10px;
 }
 #sbk-modal #player-aid-pirogue p, #sbk-modal #player-aid-pirogue h1 {
@@ -819,14 +826,47 @@ a .sprite-ankh {
   left: 495px;
   top: 490px;
 }
-#sbk-modal #player-aid-character {
-  background-image: url(img/aid_characters.jpg);
-  width: 729px;
-  height: 693px;
+
+#sbk-modal #player-aid-pirogue-pharaoh {
+  display: none;
+  background-image: url(img/aid_pirogue_pharaoh.jpg);
+  width: 328px;
+  height: 429px;
+  position: relative;
+  border-radius: 10px;
+}
+#sbk-modal #player-aid-pirogue-pharaoh p {
+  margin: 0;
+  padding: 0;
+}
+#sbk-modal #player-aid-pirogue-pharaoh .pa {
+  width: 174px;
+  position: absolute;
+}
+#sbk-modal #player-aid-pirogue-pharaoh .pa-discard-deben {
+  left: 135px;
+  top: 16px;
+}
+#sbk-modal #player-aid-pirogue-pharaoh .pa-scarabs-pharaoh {
+  left: 135px;
+  top: 206px;
+}
+
+#sbk-modal #player-aid-character-wrapper {
   margin: auto;
   margin-top: calc(50vh - 693px/2);
   position: relative;
   font-size: 0.9em;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#sbk-modal #player-aid-character {
+  background-image: url(img/aid_characters.jpg);
+  width: 729px;
+  height: 693px;
+  position: relative;
   border-radius: 10px;
 }
 #sbk-modal #player-aid-character p, #sbk-modal #player-aid-character h1, #sbk-modal #player-aid-character h2 {
@@ -878,6 +918,34 @@ a .sprite-ankh {
 #sbk-modal #player-aid-character .pa-thief {
   left: 490px;
   top: 525px;
+}
+
+#sbk-modal #player-aid-character-pharaoh {
+  display: none;
+  background-image: url(img/aid_characters_pharaoh.jpg);
+  width: 328px;
+  height: 398px;
+  position: relative;
+  border-radius: 10px;
+}
+#sbk-modal #player-aid-character-pharaoh p, #sbk-modal #player-aid-character-pharaoh h2 {
+  margin: 0;
+  padding: 0;
+}
+#sbk-modal #player-aid-character-pharaoh h2 {
+  color: #B04B37;
+}
+#sbk-modal #player-aid-character-pharaoh .pa {
+  width: 192px;
+  position: absolute;
+}
+#sbk-modal #player-aid-character-pharaoh .pa-royal-adviser {
+  left: 122px;
+  top: 14px;
+}
+#sbk-modal #player-aid-character-pharaoh .pa-spy {
+  left: 122px;
+  top: 224px;
 }
 
 #logs .sprite-pirogue, .chatwindowlogs .sprite-pirogue {

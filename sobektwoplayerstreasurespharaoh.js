@@ -94,9 +94,12 @@ function (dojo, declare, debounce, gamegui, setup, states, notifications, action
                desc = _("Keep this token, it grants you 2 points at the end of the game. Also, draw 1 additional Deben token and keep that too.");
             } else if (tile.ability == 9) {
                desc = _("Draw 2 Deben tokens and keep the higher one. Put the other back into the bag without revealing its value.");
+            } else if (tile.ability == 10) {
+               desc = _("Your opponent must randomly discard 1 Deben token among the ones they have.");
+            } else if (tile.ability == 11) {
+               desc = _("Place this token on one of your previously sold sets corresponding to one of the 2 types shown. It adds 2 Scarabs to this set at the end of the game during final score calculation. You may add this token to the ");
             }
 
-            // TODOTP
             html = `${desc}`;
             this.addTooltipHtml( element.id, html );
          }
@@ -137,6 +140,12 @@ function (dojo, declare, debounce, gamegui, setup, states, notifications, action
                } else if (tile.ability == 9 || tile.ability == 10) {
                   name = _("Scribe");
                   desc = _("If your opponent has more than 6 tiles in their hand, they must place tiles on their Corruption board until they only have 6 in their hand.");
+               } else if (tile.ability == 11) {
+                  name = _("Royal Adviser");
+                  desc = _("Discard 1 Royal corruption token of your choice among the ones you have.");
+               } else if (tile.ability == 12) {
+                  name = _("Spy");
+                  desc = _("Apply the ability of a Character tile of your choice, among the ones that have already been used for their ability during this game. So, you can not choose the ability of a character that has been sold within a set of goods.");
                }
                html = `<h3>${name}</h3>${desc}`;
                this.addTooltipHtml( element.id, html );
