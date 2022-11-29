@@ -851,7 +851,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			$this->gamestate->nextState( "next" );
 		} else if ($state['name'] == "characterThief")
 		{
-			if ($answer == "good" || $answer == "starting" || $answer == "character") {
+			if ($answer == "good" || $answer == "starting" || $answer == "character" || $answer == "pharaoh") {
 				$target_player_id = self::getPlayerAfter($player_id);
 				
 				// Get a random card of this type from opponent's hand...
