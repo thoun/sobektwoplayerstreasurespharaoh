@@ -66,6 +66,7 @@ function onResize(animate = true) {
 
 function setup ( gamedatas ) {
 	console.log( "Starting game setup", gamedatas );
+	this.gamedatas = gamedatas;
 
 	if (!gamedatas.treasuresOfThePharaohExpansion) {
 		this.dontPreloadImage(`royal-corruption.png`);
@@ -341,9 +342,9 @@ function setup ( gamedatas ) {
 	});
 	
 	// Add player aid buttons
-	const modalButtonHolder = dojo.place('<div style="text-align: center;"></div>', $('right-side-second-part'), 'before');
-	const playerAid = dojo.place('<a href="#" class="action-button bgabutton bgabutton_blue" onclick="return false;" id="v_button">'+_('Characters reference')+'</a>', modalButtonHolder, 'first');
-	const pirogueAid = dojo.place('<a href="#" class="action-button bgabutton bgabutton_blue" onclick="return false;" id="v_button">'+_('Pirogue reference')+'</a>', modalButtonHolder, 'first');
+	const modalButtonHolder = dojo.place('<div id="right-side-buttons" style="text-align: center;"></div>', $('right-side-second-part'), 'before');
+	const playerAid = dojo.place('<button type="button" class="action-button bgabutton bgabutton_blue">'+_('Characters reference')+'</button>', modalButtonHolder, 'first');
+	const pirogueAid = dojo.place('<button type="button" class="action-button bgabutton bgabutton_blue">'+_('Pirogue reference')+'</button>', modalButtonHolder, 'first');
 	dojo.connect(playerAid, "onclick", function() {
 		dojo.style($('sbk-modal'), {
 			display: 'block'
@@ -352,6 +353,9 @@ function setup ( gamedatas ) {
 			display: 'flex'
 		});
 		dojo.style($('player-aid-pirogue-wrapper'), {
+			display: 'none'
+		});
+		dojo.style($('player-aid-played-characters'), {
 			display: 'none'
 		});
 	});
@@ -365,7 +369,34 @@ function setup ( gamedatas ) {
 		dojo.style($('player-aid-pirogue-wrapper'), {
 			display: 'flex'
 		});
+		dojo.style($('player-aid-played-characters'), {
+			display: 'none'
+		});
 	});
+
+	if (gamedatas.treasuresOfThePharaohExpansion) {
+		const playedCharactersAid = dojo.place('<button type="button" class="action-button bgabutton bgabutton_blue">'+_('Played characters')+'</button>', modalButtonHolder, 'last');
+		dojo.connect(playedCharactersAid, "onclick", function() {
+			dojo.style($('sbk-modal'), {
+				display: 'block'
+			});
+			dojo.style($('player-aid-character-wrapper'), {
+				display: 'none'
+			});
+			dojo.style($('player-aid-pirogue-wrapper'), {
+				display: 'none'
+			});
+			dojo.style($('player-aid-played-characters-wrapper'), {
+				display: 'flex'
+			});
+		});
+
+		if (gamedatas.playedCharacters.length) {
+			gamedatas.playedCharacters.forEach(character => dojo.place('<div class="sprite sprite-tile sprite-character-' + character.ability.padStart(2, '0') + '"></div>', 'player-aid-played-characters'));
+		} else {
+			$('player-aid-played-characters').innerHTML = '<div id="no-played-characters">' + _('No played character') + '</div>';
+		}
+	}
 	
 	const toTranslate = document.getElementsByClassName('sbk-to-localise');
 	for (let i = 0; i < toTranslate.length; i++) {

@@ -225,6 +225,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table {
 		);
 
 		$result['treasuresOfThePharaohExpansion'] = $isTreasuresOfThePharaohExpansion;
+		$result['playedCharacters'] = Tile::getPlayedCharacters();
 
 		return $result;
 	}
@@ -451,6 +452,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table {
 			'player_id' => $player_id,
 			'player_name' => self::getActivePlayerName(),
 			'tile' => $tile,
+			'playedCharacted' => true,
 			'image' => '<div class="sprite sprite-tile sprite-character-'.$padability.'"></div>'
 		));
 		

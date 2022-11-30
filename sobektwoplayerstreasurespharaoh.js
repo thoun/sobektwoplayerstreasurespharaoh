@@ -104,8 +104,8 @@ function (dojo, declare, debounce, gamegui, setup, states, notifications, action
             this.addTooltipHtml( element.id, html );
          }
       },
-      addTooltipToTile: function(element) {
-         const tile = element.tile;
+      addTooltipToTile: function(element, tileInfos = null) {
+         const tile = element.tile || tileInfos;
          element.id = 'tooltip-id-' + this.tooltipIds;
          this.tooltipIds++;
          if (tile && tile.deck == 'character') {

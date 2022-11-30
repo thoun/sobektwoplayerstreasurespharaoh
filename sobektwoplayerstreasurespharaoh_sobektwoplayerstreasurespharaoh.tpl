@@ -190,6 +190,10 @@
 			</div>
 		</div>
 	</div>
+	<div id="player-aid-played-characters-wrapper">
+		<div id="player-aid-played-characters">
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">

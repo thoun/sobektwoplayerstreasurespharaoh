@@ -279,9 +279,11 @@ function onUpdateActionButtons( stateName, args ) {
 				}
 				break;
 			case 'characterSpy':
-				args.playedCharacters.forEach(character => 
+				args.playedCharacters.forEach(character => {
 					this.addActionButton( `playCharacter${character['tile_id']}_button`, `<div class="sprite sprite-tile  sprite-character-${character['ability'].toString().padStart(2, '0')}"></div>`, () => playCharacter.bind(this)(character['tile_id']) )
-				);
+					const element = $(`playCharacter${character['tile_id']}_button`);
+					this.addTooltipToTile(element, character);
+				});
 		}
 	}
 }

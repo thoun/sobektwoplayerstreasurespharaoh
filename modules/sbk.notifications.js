@@ -201,6 +201,10 @@ function handleDiscardTile( notif ) {
 			dojo.place( '<div class="sprite sprite-deben sprite-deben-back"></div> ', $('deben-holder-p'+playerId) );
 		}
 	}
+
+	if (notif.args.playedCharacted) {
+		dojo.place('<div class="sprite sprite-tile sprite-character-' + tile.ability.padStart(2, '0') + '"></div>', 'player-aid-played-characters');
+	}
 }
 
 function handleRemoveCorruption( notif ) {

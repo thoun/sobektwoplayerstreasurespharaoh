@@ -426,8 +426,8 @@ a .sprite-ankh {
 }
 
 .bgabutton .sprite.sprite-tile {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
 
 .gamestate_orientation #generalactions {
@@ -946,6 +946,42 @@ a .sprite-ankh {
 #sbk-modal #player-aid-character-pharaoh .pa-spy {
   left: 122px;
   top: 224px;
+}
+
+#sbk-modal #player-aid-played-characters-wrapper {
+  margin: auto;
+  margin-top: calc(50vh - 300px);
+  position: relative;
+  font-size: 0.9em;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 600px;
+}
+
+#sbk-modal #player-aid-played-characters {
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px;
+}
+
+#sbk-modal #player-aid-played-characters .sprite {
+  width: 100px;
+  height: 100px;
+}
+
+#no-played-characters:not(:only-child) {
+  display: none;
+}
+
+
+#right-side-buttons button {
+  width: auto;
 }
 
 #logs .sprite-pirogue, .chatwindowlogs .sprite-pirogue {
