@@ -300,14 +300,20 @@ function setup ( gamedatas ) {
 	this.addTooltipToClass( 'tt-livestock', _( 'Livestock' ), "" );
 	this.addTooltipToClass( 'tt-wheat', _( 'Wheat' ), "" );
 	this.addTooltipToClass( 'tt-hand', _( 'Tiles in hand' ), "" );
-	this.addTooltipHtmlToClass( 'hand-backs-holder', `
+
+	let tilesInHandHtml = `
 		<div>${_( 'Tiles in hand' )}</div>
 		<div>
 			<div class="sprite-tile-holder"><div class="sprite sprite-tile sprite-starting-back"></div> ${_( 'Starting tile' )}</div>
 			<div class="sprite-tile-holder"><div class="sprite sprite-tile sprite-good-back"></div> ${_( 'Goods tile' )}</div>
-			<div class="sprite-tile-holder"><div class="sprite sprite-tile sprite-character-back"></div> ${_( 'Character tile' )}</div>
-		</div>
-	`, 0 );
+			<div class="sprite-tile-holder"><div class="sprite sprite-tile sprite-character-back"></div> ${_( 'Character tile' )}</div>`;
+	if (gamedatas.treasuresOfThePharaohExpansion) {
+		tilesInHandHtml += `<div class="sprite-tile-holder"><div class="sprite sprite-tile sprite-pharaoh-back"></div> ${_( 'Pharaoh tile' )}</div>`;
+	}
+
+	tilesInHandHtml += `	</div>`;
+
+	this.addTooltipHtmlToClass( 'hand-backs-holder', tilesInHandHtml, 0 );
 	//this.addTooltipToClass( 'hand-backs-holder', _( 'Tiles in hand' ), "" );
 	this.addTooltipToClass( 'deben-holder', _( 'Deben tokens' ), "" );
 	this.addTooltipToClass( 'pirogue-holder', _( 'Pirogue tokens' ), "" );
