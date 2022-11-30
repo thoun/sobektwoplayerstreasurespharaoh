@@ -1721,7 +1721,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		
 		// If there is any tile with a resource, pick automatically...
 		foreach ($just_sold as $tile) {
-			if (isset($tile['resource'])) {
+			if (isset($tile['resource']) &&  strpos($tile['resource'], '-or-') === false) {
 				self::answer($tile['resource']);
 				break;
 			}
