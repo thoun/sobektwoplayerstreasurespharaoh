@@ -911,6 +911,8 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			throw new BgaVisibleSystemException( "That Pirogue does not exist." );
 		}
 		
+		$players = self::loadPlayersBasicInfos();
+		
 		// Depending on mode, must be in a slot
 		if ($state['name'] == 'pirogue') {
 			if ($pirogue["location"] != 'slot') {
@@ -932,6 +934,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		$discard = false;
 		$transition = "next";
 		$message = '';
+		$messageArgs = [];
 		$num = 0;
 		
 		if ($ability == 1 || $ability == 2) {
@@ -1023,6 +1026,9 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			$opponentId = self::getPlayerAfter($player_id);
 			$opponentDebens = Deben::getOwned($opponentId);
 
+			$message = clienttranslate('${player_name} takes a Pirogue token and makes ${player_name2} randomly discard 1 Deben token: ${image}');
+			$messageArgs['player_name2'] = $players[$opponentId]["player_name"];
+
 			if (count($opponentDebens) > 0) {
 				$discardedDeben = $opponentDebens[bga_rand(0, count($opponentDebens)-1)];
 				self::DbQuery("UPDATE `deben` SET `location`='discard' WHERE `deben_id` = $discardedDeben[deben_id]");
@@ -1047,13 +1053,11 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			throw new BgaVisibleSystemException( "Unrecognised Pirogue ability." );
 		}
 		
-		$players = self::loadPlayersBasicInfos();
-		
 		if ($target_player_id != null) {
 			self::DbQuery("UPDATE pirogue SET location='player', player_id='$target_player_id' WHERE pirogue_id=$pirogue[pirogue_id]");
 			$pirogue['location'] = 'player';
 			$pirogue['player_id'] = $target_player_id;
-			self::notifyAllPlayers( "takePirogue", $message, array(
+			self::notifyAllPlayers( "takePirogue", $message, $messageArgs + array(
 				'player_id' => $player_id,
 				'player_name' => self::getActivePlayerName(),
 				'pirogue' => $pirogue,
@@ -1066,7 +1070,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			// Discard the token...
 			self::DbQuery("UPDATE pirogue SET location='discard' WHERE pirogue_id=$pirogue[pirogue_id]");
 			$pirogue['location'] = 'discard';
-			self::notifyAllPlayers( "takePirogue", $message, array(
+			self::notifyAllPlayers( "takePirogue", $message, $messageArgs + array(
 				'player_id' => $player_id,
 				'player_name' => self::getActivePlayerName(),
 				'player_name2' => '',
@@ -1077,7 +1081,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 			));
 		} else {
 			// State...
-			self::notifyAllPlayers( "takePirogue", $message, array(
+			self::notifyAllPlayers( "takePirogue", $message, $messageArgs + array(
 				'player_id' => $player_id,
 				'player_name' => self::getActivePlayerName(),
 				'player_name2' => '',
