@@ -512,6 +512,7 @@ function handleHandUpdate( notif ) {
 	const numStarting = notif.args.hand_starting_size;
 	const numGood = notif.args.hand_good_size;
 	const numCharacter = notif.args.hand_character_size;
+	const numPharaoh = notif.args.hand_pharaoh_size;
 	
 	if (playerId != this.player_id) {
 		const handBreakdownDiv = $('hand-backs-holder-p'+playerId);
@@ -524,6 +525,9 @@ function handleHandUpdate( notif ) {
 		}
 		for (let i = 0; i < numCharacter; i++) {
 			handBreakdownDiv.innerHTML += `<div class="sprite sprite-tile sprite-character-back"></div>`;
+		}
+		for (let i = 0; i < numPharaoh; i++) {
+			handBreakdownDiv.innerHTML += `<div class="sprite sprite-tile sprite-pharaoh-back"></div>`;
 		}
 	}
 }

@@ -100,6 +100,9 @@ function setup ( gamedatas ) {
 			for (let i = 0; i < po.hand_character_size; i++) {
 				handBreakdownDiv.innerHTML += `<div class="sprite sprite-tile sprite-character-back"></div>`;
 			}
+			for (let i = 0; i < po.hand_pharaoh_size; i++) {
+				handBreakdownDiv.innerHTML += `<div class="sprite sprite-tile sprite-pharaoh-back"></div>`;
+			}
 		}
 	
 		if (po.debens != null) {

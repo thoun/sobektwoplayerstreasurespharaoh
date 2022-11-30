@@ -166,9 +166,10 @@ class SobekTwoPlayersTreasuresPharaoh extends Table {
 			$players[$player_id]['hand_size'] = count($hand);
 			
 			
-			$players[$player_id]['hand_starting_size'] = count(array_filter($hand, function($t) {return $t['deck'] == 'starting';}));
-			$players[$player_id]['hand_good_size'] = count(array_filter($hand, function($t) {return $t['deck'] == 'good';}));
-			$players[$player_id]['hand_character_size'] = count(array_filter($hand, function($t) {return $t['deck'] == 'character';}));
+			$players[$player_id]['hand_starting_size'] = count(array_filter($hand, fn($t) => $t['deck'] == 'starting'));
+			$players[$player_id]['hand_good_size'] = count(array_filter($hand, fn($t) => $t['deck'] == 'good'));
+			$players[$player_id]['hand_character_size'] = count(array_filter($hand, fn($t) => $t['deck'] == 'character'));
+			$players[$player_id]['hand_pharaoh_size'] = count(array_filter($hand, fn($t) => $t['deck'] == 'pharaoh'));
 			
 			$corruption = Tile::getCorruption( $player_id );
 			if ($player_id == self::getCurrentPlayerId()) {
@@ -2020,6 +2021,7 @@ class SobekTwoPlayersTreasuresPharaoh extends Table {
 			'hand_starting_size' => count(array_filter($hand, function($t) {return $t['deck'] == 'starting';})),
 			'hand_good_size' => count(array_filter($hand, function($t) {return $t['deck'] == 'good';})),
 			'hand_character_size' => count(array_filter($hand, function($t) {return $t['deck'] == 'character';})),
+			'hand_pharaoh_size' => count(array_filter($hand, function($t) {return $t['deck'] == 'pharaoh';})),
 		));
 	}
 		
