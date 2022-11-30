@@ -95,7 +95,7 @@ function onClickHand( event ) {
 				}
 			}
 		}
-		if (types.length > 1) {
+		if (types && types.length > 1) {
 			canSell = false;
 		}
 	}

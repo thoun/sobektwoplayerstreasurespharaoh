@@ -5,9 +5,11 @@ require_once('modules/sbk_tile.php');
 require_once('modules/sbk_deben.php');
 require_once('modules/sbk_pirogue.php');
 require_once('modules/sbk_royal_corruption.php');
+require_once('modules/sbk_debug.php');
 
-class SobekTwoPlayersTreasuresPharaoh extends Table
-{
+class SobekTwoPlayersTreasuresPharaoh extends Table {
+    use DebugUtilTrait;
+
 	function __construct( )
 	{
 		parent::__construct();
@@ -674,11 +676,20 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 		{
 			if ($answer == "wheat" || $answer == "ebony" || $answer == "ivory" || $answer == "marble" || $answer == "fish" || $answer == "livestock") {
 				$just_sold = self::getObjectList('SELECT * FROM tile WHERE just_sold = 1');
+				$onlyStatues = true;
 				foreach ($just_sold as $k => $v) {
+					if ($just_sold[$k]['statue'] != 1) {
+						$onlyStatues = false;
+					}
 					$just_sold[$k]['resource'] = $answer;
 					$just_sold[$k]['just_sold'] = 0;
 					$just_sold[$k]['location'] = 'sold';
 				}
+
+				if ($onlyStatues && intval(self::getUniqueValueFromDB("SELECT count(*) FROM tile WHERE location = 'sold' AND resource = '$answer'")) == 0) {
+					throw new BgaUserException( self::_("You must add onto an existing sold set") );
+				}
+
 				self::notifyAllPlayers( "sold", clienttranslate('${player_name} sells some tiles'), array(
 					'player_id' => $player_id,
 					'player_name' => self::getActivePlayerName(),
@@ -1718,13 +1729,22 @@ class SobekTwoPlayersTreasuresPharaoh extends Table
 	
 	function stPickResource() {
 		$just_sold = self::getObjectList('SELECT * FROM tile WHERE just_sold = 1');
+
+		$resources = null;
+		foreach ($just_sold as $tile) {
+			if ($tile['statue'] == 1) {
+				//
+			} else if ($resources == null) {
+				$resources = explode('-or-', $tile["resource"]);
+			} else {
+				$otherResources = explode('-or-', $tile["resource"]);
+				$resources = array_values(array_filter($resources, fn($resource) => in_array($resource, $otherResources) ));
+			}
+		}
 		
 		// If there is any tile with a resource, pick automatically...
-		foreach ($just_sold as $tile) {
-			if (isset($tile['resource']) &&  strpos($tile['resource'], '-or-') === false) {
-				self::answer($tile['resource']);
-				break;
-			}
+		if ($resources !== null && count($resources) == 1) {
+			self::answer($resources[0]);
 		}
 	}
 	
