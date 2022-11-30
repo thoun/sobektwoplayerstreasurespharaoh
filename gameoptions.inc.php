@@ -37,7 +37,7 @@ $game_options = [
                 'tmdisplay' => totranslate('Treasures of the Pharaoh expansion'),
             ],
         ],
-        'default' => 1,
+        'default' => 2,
     ],
 
 ];
