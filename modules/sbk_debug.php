@@ -20,6 +20,11 @@ trait DebugUtilTrait {
         SobekTwoPlayersTreasuresPharaoh::DbQuery( "UPDATE tile SET location = 'hand', player_id = $playerId WHERE location = 'deck'" );
     }
 
+    function debugTakeAllPharaoh() {
+        $playerId = 2343492;
+        SobekTwoPlayersTreasuresPharaoh::DbQuery( "UPDATE tile SET location = 'hand', player_id = $playerId WHERE deck = 'pharaoh'" );
+    }
+
     public function debugReplacePlayersIds() {
         if ($this->getBgaEnvironment() != 'studio') { 
             return;
