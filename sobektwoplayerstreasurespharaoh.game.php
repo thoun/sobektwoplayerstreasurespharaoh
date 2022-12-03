@@ -448,13 +448,21 @@ class SobekTwoPlayersTreasuresPharaoh extends Table {
 		$padability = str_pad($ability, 2, "0", STR_PAD_LEFT);
 		
 		Tile::discardPlayedCharacter($tile);
-		self::notifyAllPlayers( "discardTile", clienttranslate('${player_name} plays a Character: ${image}'), array(
-			'player_id' => $player_id,
-			'player_name' => self::getActivePlayerName(),
-			'tile' => $tile,
-			'playedCharacted' => true,
-			'image' => '<div class="sprite sprite-tile sprite-character-'.$padability.'"></div>'
-		));
+		
+		if ($state['name'] == 'characterSpy') {
+			self::notifyAllPlayers( "log", clienttranslate('${player_name} applies the ability of: ${image}'), [
+				'player_name' => self::getActivePlayerName(),
+				'image' => '<div class="sprite sprite-tile sprite-character-'.$padability.'"></div>'
+			]);
+		} else {
+			self::notifyAllPlayers( "discardTile", clienttranslate('${player_name} plays a Character: ${image}'), array(
+				'player_id' => $player_id,
+				'player_name' => self::getActivePlayerName(),
+				'tile' => $tile,
+				'playedCharacted' => true,
+				'image' => '<div class="sprite sprite-tile sprite-character-'.$padability.'"></div>'
+			));
+		}
 		
 		// Do different things depending on the ability...
 		$transition = "next";
